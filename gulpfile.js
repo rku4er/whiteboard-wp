@@ -171,7 +171,7 @@ var writeToManifest = function(directory) {
 // of the first file src.svg.
 gulp.task('icons', function () {
     var svgs = gulp
-        .src([path.source + 'icons/*.svg'])
+        .src([path.source + 'icons/**/*.svg'])
         .pipe(svgstore({ inlineSvg: true }));
 
     function fileContents (filePath, file) {
@@ -179,7 +179,7 @@ gulp.task('icons', function () {
     }
 
     return gulp
-        .src('templates/inline-svg.php')
+        .src([path.source + 'inline-svg.php'])
         .pipe(inject(svgs, { transform: fileContents }))
         .pipe(gulp.dest('templates'));
 });
