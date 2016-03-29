@@ -1,0 +1,16 @@
+// Set wich breakpoints object to use
+$breakpoints: $grid-breakpoints;
+
+
+/*nice transitions for links*/
+a{
+    @include transition(color .2s ease-in-out, background .2s ease-in-out);
+}
+
+.lead {
+    color: $lead-color;
+    font-family: $lead-font-family;
+}
+
+// jQuery svg click fix
+svg { pointer-events: none; }

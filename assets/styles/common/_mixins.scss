@@ -1,0 +1,41 @@
+@mixin variations($extra, $property) {
+    $colors: (
+        'primary': $brand-primary, 
+        'success': $brand-success, 
+        'info': $brand-info, 
+        'warning': $brand-warning, 
+        'danger': $brand-danger
+    );
+
+    @each $name, $value in $colors {
+
+        &-#{$name} #{$extra}{
+            #{$property}: #{$value};
+        }
+    }
+}
+
+@mixin padding-box($gutter-y: $grid-gutter-width, $gutter-x: $grid-gutter-width) {
+    padding: $gutter-y $gutter-x/2;
+
+    @include media (">=md") {
+        padding: $gutter-y*1.5 $gutter-x;
+    }
+
+    @include media (">=lg") {
+        padding: $gutter-y*2 $gutter-x*1.5;
+    }
+
+    @include media (">=xl") {
+        padding: $gutter-y*3 $gutter-x*2;
+    }
+}
+
+@mixin form-control-error-focus($color) {
+  &:focus {
+    border-color: $color;
+    outline: none;
+    $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color;
+    @include box-shadow($shadow);
+  }
+}
