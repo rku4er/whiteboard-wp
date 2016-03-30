@@ -1,7 +1,7 @@
 <?php use Roots\Sage\Utils; ?>
 
 <?php
-    if( have_rows('content_rows') ){
+    if( Utils\sage_get_field('content_rows') ){
         Utils\sage_init_flexible_content( 'content_rows' );
     } else {
         the_content();

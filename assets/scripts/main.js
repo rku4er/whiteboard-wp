@@ -111,7 +111,7 @@
         });
 
         // Image gallery lightbox
-        $('.gallery-wrapper .gallery').each(function(){
+        $('.gallery').each(function(){
             var $thumb = $(this).find('a.gallery-thumb');
             $thumb.magnificPopup({
                 type:       'image',
@@ -155,10 +155,8 @@
         // ripples
         $([
           ".navbar-toggle",
-          ".btn:not(.btn-link)",
-          ".card-image",
-          ".navbar a:not(.withoutripple)",
-          ".dropdown-menu a:not(.withoutripple)",
+          ".btn",
+          ".nav-link",
           ".withripple"
         ].join(",")).ripples();
 

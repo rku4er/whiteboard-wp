@@ -179,7 +179,7 @@ gulp.task('icons', function () {
     }
 
     return gulp
-        .src([path.source + 'inline-svg.php'])
+        .src([path.source + 'icons-svg.php'])
         .pipe(inject(svgs, { transform: fileContents }))
         .pipe(gulp.dest('templates'));
 });

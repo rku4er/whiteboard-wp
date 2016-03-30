@@ -13,24 +13,27 @@
       </div>
     <![endif]-->
 
+    <?php get_template_part('templates/icons-svg'); ?>
+
     <?php
-      do_action('get_header');
-      get_template_part('templates/header');
+        do_action('get_header');
+        get_template_part('templates/header');
     ?>
 
     <div class="wrap" role="document">
 
-      <main class="main" role="main">
-        <?php include Wrapper\template_path(); ?>
-      </main><!-- /.main -->
+        <main class="main" role="main">
+
+            <?php include Wrapper\template_path(); ?>
+
+        </main><!-- /.main -->
 
     </div><!-- /.wrap -->
 
     <?php
-      do_action('get_footer');
-      get_template_part('templates/footer');
-      get_template_part('templates/inline-svg');
-      wp_footer();
+        do_action('get_footer');
+        get_template_part('templates/footer');
+        wp_footer();
     ?>
 
   </body>

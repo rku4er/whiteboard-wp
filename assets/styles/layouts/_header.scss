@@ -1,19 +1,16 @@
 .navbar{
     border-bottom: 1px solid #ccc;
 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: space-between;
+        align-items: center;
 
-    @include media (">=sm", "<lg") {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    @include media (">=md") {
-        padding-left: $grid-gutter-width;
-        padding-right: $grid-gutter-width;
+        @include media (">=sm", "<lg") {
+            flex-direction: column;
+            text-align: center;
+        }
     }
 
     /*fixed navbar*/
@@ -35,14 +32,10 @@
     }
 
     .navbar-brand{
-        height: 5.75rem;
         display: inline-block;
+        vertical-align: top;
         float: none;
-
-        img{
-            max-height: 100%;
-        }
-
+        padding: 0;
     }
 
     .navbar-toggler {

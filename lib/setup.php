@@ -10,12 +10,13 @@ use Roots\Sage\Utils;
  */
 add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
 function setup() {
-  $options = Utils\sage_get_options();
+  $options  = Utils\sage_get_options();
+  $gaID     = $options['google_analytics_id'];
 
   add_theme_support('soil-clean-up');         // Enable clean up from Soil
   add_theme_support('soil-relative-urls');    // Enable relative URLs from Soil
   add_theme_support('soil-nice-search');      // Enable nice search from Soil
-  add_theme_support('soil-google-analytics', $options['google_analytics_id']); // Enable Google Analytics
+  if( $gaID ) add_theme_support('soil-google-analytics', $gaID); // Enable Google Analytics
   //add_theme_support('soil-jquery-cdn');     // Enable jQuery from the Google CDN
   //add_theme_support('soil-js-to-footer');   // Enable js to footer
   add_theme_support('soil-nav-walker');       // Enable clean nav walker
@@ -64,7 +65,7 @@ function setup() {
   } );
 
   // add excerpt to pages
-  add_post_type_support( 'page', 'excerpt' );
+  //add_post_type_support( 'page', 'excerpt' );
 
 }
 
@@ -73,7 +74,7 @@ function setup() {
  * Custom Post Type
  */
 
-add_action( 'init', __NAMESPACE__ . '\\create_custom_post_types' );
+//add_action( 'init', __NAMESPACE__ . '\\create_custom_post_types' );
 
 function create_custom_post_types() {
 
@@ -144,23 +145,11 @@ function sage_options_page() {
             'redirect'      => true
         ));
 
-        acf_add_options_sub_page(array(
-            'page_title'    => __('Header', 'sage'),
-            'menu_title'    => __('Header', 'sage'),
-            'parent_slug'   => 'theme_options',
-        ));
-
-        acf_add_options_sub_page(array(
-            'page_title'    => __('Footer', 'sage'),
-            'menu_title'    => __('Footer', 'sage'),
-            'parent_slug'   => 'theme_options',
-        ));
-
-        acf_add_options_sub_page(array(
-            'page_title'    => __('Editor', 'sage'),
-            'menu_title'    => __('Editor', 'sage'),
-            'parent_slug'   => 'theme_options',
-        ));
+        //acf_add_options_sub_page(array(
+            //'page_title'    => __('Navbar', 'sage'),
+            //'menu_title'    => __('Navbar', 'sage'),
+            //'parent_slug'   => 'theme_options',
+        //));
 
     }
 

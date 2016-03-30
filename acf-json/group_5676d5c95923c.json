@@ -1,11 +1,41 @@
 {
     "key": "group_5676d5c95923c",
-    "title": "Theme Options | Header",
+    "title": "Theme Options",
     "fields": [
         {
+            "key": "field_56ea8f3f43b2e",
+            "label": "Navbar position",
+            "name": "navbar_position",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "static-top": "Static top",
+                "fixed-top": "Fixed top",
+                "fixed-bottom": "Fixed bottom",
+                "sticky-top: Sticky top": "sticky-top: Sticky top"
+            },
+            "default_value": [
+                "static-top"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "disabled": 0,
+            "readonly": 0
+        },
+        {
             "key": "field_56780c1b90bd9",
-            "label": "Logo",
-            "name": "logo",
+            "label": "Navbar logo",
+            "name": "navbar_logo",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -27,10 +57,10 @@
             "mime_types": ""
         },
         {
-            "key": "field_56780d014f367",
-            "label": "Favicon",
-            "name": "favicon",
-            "type": "image",
+            "key": "field_56fbfbfb65b21",
+            "label": "Navbar button",
+            "name": "navbar_button",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -39,22 +69,19 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url",
-            "preview_size": "full",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": ".ico"
+            "default_value": "#contact_us",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
         },
         {
-            "key": "field_56ea8f3f43b2e",
-            "label": "Navbar position",
-            "name": "navbar_position",
-            "type": "select",
+            "key": "field_56fbfc1465b22",
+            "label": "Navbar phone",
+            "name": "navbar_phone",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -63,21 +90,103 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "static-top": "Static top",
-                "fixed-top": "Fixed top",
-                "fixed-bottom": "Fixed bottom"
-            },
-            "default_value": {
-                "static-top": "static-top"
-            },
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "ajax": 0,
+            "default_value": "",
             "placeholder": "",
-            "disabled": 0,
-            "readonly": 0
+            "prepend": "(+47)",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_56fbfc5665b23",
+            "label": "Copyright",
+            "name": "copyright",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_56fbfca765b27",
+            "label": "Google Analytics ID",
+            "name": "google_analytics_id",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_56fbfc6065b24",
+            "label": "Custom HTML",
+            "name": "custom_html",
+            "type": "code",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "language": "html",
+            "theme": "github"
+        },
+        {
+            "key": "field_56fbfc8065b25",
+            "label": "Custom CSS",
+            "name": "custom_css",
+            "type": "code",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "language": "css",
+            "theme": "github"
+        },
+        {
+            "key": "field_56fbfc9465b26",
+            "label": "Custom JS",
+            "name": "custom_js",
+            "type": "code",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "language": "javascript",
+            "theme": "github"
         }
     ],
     "location": [
@@ -85,7 +194,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-header"
+                "value": "theme_options"
             }
         ]
     ],
@@ -97,5 +206,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1458233958
+    "modified": 1459354940
 }

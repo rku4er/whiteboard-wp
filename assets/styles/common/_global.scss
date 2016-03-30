@@ -14,3 +14,17 @@ a{
 
 // jQuery svg click fix
 svg { pointer-events: none; }
+
+// hentry space
+.hentry {
+    padding-top: $spacer*3;
+    padding-bottom: $spacer*3;
+}
+
+// svg icons
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -42,14 +42,17 @@ class NavWalker extends \Walker_Nav_Menu {
   function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
     $item_html = '';
     parent::start_el($item_html, $item, $depth, $args);
+
+    $item_html = str_replace('<a', '<a class="nav-link"', $item_html);
     if ($item->is_subitem && ($depth === 0)) {
-      $item_html = str_replace('<a', '<a class="dropdown-toggle" data-toggle="dropdown" data-target="#"', $item_html);
-      $item_html = str_replace('</a>', ' <b class="caret"></b></a>', $item_html);
+      $item_html = str_replace('<a', '<a class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="#"', $item_html);
+      //$item_html = str_replace('</a>', ' <b class="caret"></b></a>', $item_html);
     } elseif (stristr($item_html, 'li class="divider')) {
       $item_html = preg_replace('/<a[^>]*>.*?<\/a>/iU', '', $item_html);
     } elseif (stristr($item_html, 'li class="dropdown-header')) {
       $item_html = preg_replace('/<a[^>]*>(.*)<\/a>/iU', '$1', $item_html);
     }
+
     $item_html = apply_filters('sage/wp_nav_menu_item', $item_html);
     $output .= $item_html;
   }
@@ -91,16 +94,20 @@ class NavWalker extends \Walker_Nav_Menu {
     $classes = preg_replace('/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active', $classes);
     $classes = preg_replace('/^((menu|page)[-_\w+]+)+/', '', $classes);
 
-    // Re-add core `menu-item` class
-    $classes[] = 'menu-item';
+    // Re-add core `nav-item` class
+    if ($item->menu_item_parent) {
+        $classes[] = 'dropdown-item';
+    } else {
+        $classes[] = 'nav-item';
+    }
 
-    // Re-add core `menu-item-has-children` class on parent elements
+    // Re-add core `nav-item-has-children` class on parent elements
     if ($item->is_subitem) {
-      $classes[] = 'menu-item-has-children';
+      $classes[] = 'nav-item-has-children';
     }
 
     // Add `menu-<slug>` class
-    $classes[] = 'menu-' . $slug;
+    $classes[] = 'nav-' . $slug;
 
     $classes = array_unique($classes);
     $classes = array_map('trim', $classes);
