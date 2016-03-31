@@ -1,34 +1,47 @@
 .navbar{
     border-bottom: 1px solid #ccc;
+    padding: 0;
 
     .row {
-        margin-left: 0;
-        margin-right: 0;
-        justify-content: space-between;
         align-items: center;
+        padding-top: $spacer/2;
+        padding-bottom: $spacer/2;
 
-        @include media (">=sm", "<lg") {
-            flex-direction: column;
-            text-align: center;
+        .col-primary,
+        .col-secondary {
+            @include make-col();
+        }
+
+        .col-primary {
+            @include make-col-span(3);
+
+            @include media (">=sm") {
+                @include make-col-span(6);
+            }
+        }
+
+        .col-secondary {
+            @include make-col-span(9);
+
+            @include media (">=sm") {
+                @include make-col-span(6);
+            }
+
+            text-align: right;
         }
     }
 
     /*fixed navbar*/
     &.navbar-fixed-top ~ .wrap{
-        margin-top: 107px;
+        margin-top: 126px;
     }
     &.navbar-fixed-bottom ~ .content-info{
-        margin-bottom: 107px;
+        margin-bottom: 126px;
     }
+
 
     .navbar-nav-wrapper {
-        @include media ("<lg") {
-            width: 100%;
-        }
-    }
-
-    .navbar-brand-wrapper {
-        flex: 1;
+        background-color: $gray-dark;
     }
 
     .navbar-brand{
@@ -36,15 +49,35 @@
         vertical-align: top;
         float: none;
         padding: 0;
+        margin-right: 0;
+
+        img {
+             max-height: 50px;
+        }
+    }
+
+    .navbar-phone {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .navbar-btn {
+        @extend .btn;
+        @extend .btn-primary;
+        @extend .btn-lg;
+        @extend .hidden-sm-down;
+        margin-left: $grid-gutter-width/2;
     }
 
     .navbar-toggler {
         color: $gray-dark;
         overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: $grid-gutter-width/2;
 
-        @include media (">=sm") {
-            display: none;
-        }
+        @extend .hidden-sm-up;
 
         .icon-menu,
         .icon-close {
@@ -54,6 +87,17 @@
             width: $spacer*2;
             height: $spacer*1.5;
             overflow: hidden;
+
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                height: 3px;
+                left: 0;
+                width: 100%;
+                background-color: $brand-primary;
+            }
         }
 
         .icon-menu {
@@ -62,18 +106,7 @@
             opacity: 0;
             position: absolute;
 
-            border-bottom: 2px solid $brand-primary;
-
-            &:before,
-            &:after {
-                content: "";
-                display: block;
-                position: absolute;
-                left: 0;
-                width: 100%;
-                background-color: $brand-primary;
-                height: 2px;
-            }
+            border-bottom: 3px solid $brand-primary;
 
             &:after {
                  top: 50%;
@@ -87,14 +120,7 @@
 
             &:before,
             &:after {
-                content: "";
-                display: block;
-                position: absolute;
-                left: 0;
                 top: 50%;
-                width: 100%;
-                background-color: $brand-primary;
-                height: 2px;
                 transform-origin: 50% 50%;
             }
 
@@ -123,15 +149,21 @@
         }
     }
 
-
     .navbar-nav {
         float: none;
-        flex: 1;
 
         @include media ("<md") {
             text-align: center;
-            margin-left: -$grid-gutter-width/2;
-            margin-right: -$grid-gutter-width/2;
+        }
+
+        @include media (">=sm") {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @include media (">=md") {
+            justify-content: space-around;
         }
 
         .nav-item {
@@ -140,9 +172,8 @@
             float: none;
 
             @include media ("<sm") {
-                 border-top: 1px solid $gray-lighter;
-                 & + .nav-item {
-                     margin-left: 0;
+                 &:not(:last-child) {
+                     border-bottom: 1px solid $gray-lighter;
                  }
             }
 
@@ -170,13 +201,16 @@
 
         .nav-link {
             position: relative;
-            padding: $spacer*2 $spacer;
+            padding: $spacer;
             font-size: $font-size-base;
-            color: $brand-primary;
+            color: #fff;
 
             @include media (">=sm") {
-                color: #000;
-                padding: $spacer;
+                padding: $spacer $spacer*0.5;
+            }
+
+            @include media (">=xl") {
+                text-transform: uppercase;
             }
 
             @include hover-focus{

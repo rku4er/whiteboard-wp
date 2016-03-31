@@ -12,15 +12,17 @@ use Roots\Sage\Titles;
 
 function sage_navbar_logo() {
 
-    $output = '';
+    $output  = '';
     $options = Utils\sage_get_options();
-    $logo = $options['navbar_logo'];
+    $logo_sm = $options['navbar_logo_mobile'];
+    $logo_lg = $options['navbar_logo_desktop'];
 
-    if( $logo ) {
+    if( $logo_sm || $logo_lg ) {
 
-        $output = sprintf('<a class="navbar-brand" href="%s">%s</a>',
+        $output = sprintf('<a class="navbar-brand" href="%s"><span class="hidden-sm-up">%s</span><span class="hidden-xs-down">%s</span></a>',
             home_url('/'),
-            sprintf('<img src="%s" alt="%s">', $logo['url'], get_bloginfo('name'))
+            sprintf('<img src="%s" alt="%s">', $logo_sm['url'], get_bloginfo('name')),
+            sprintf('<img src="%s" alt="%s">', $logo_lg['url'], get_bloginfo('name'))
         );
 
     }
@@ -35,8 +37,8 @@ function sage_navbar_logo() {
 
 function sage_navbar_position_class() {
 
-    $output = '';
-    $options = Utils\sage_get_options();
+    $output          = '';
+    $options         = Utils\sage_get_options();
     $navbar_position = $options['navbar_position'];
 
     if( $navbar_position ) {
@@ -56,12 +58,15 @@ function sage_navbar_position_class() {
 
 function sage_navbar_phone() {
 
-    $output = '';
+    $output  = '';
     $options = Utils\sage_get_options();
-    $phone = $options['navbar_phone'];
+    $phone   = $options['navbar_phone'];
 
     if( $phone ) {
-        $output = sprintf('<span class="nav-phone">%s</span>', $phone);
+        $output = sprintf('<a href="tel:+47%s" class="navbar-phone">(+47) %s</a>',
+            preg_replace('/[^0-9]+/', '', $phone),
+            $phone
+        );
     }
 
     echo $output;
@@ -75,9 +80,9 @@ function sage_navbar_phone() {
 
 function sage_navbar_button() {
 
-    $output = '';
+    $output  = '';
     $options = Utils\sage_get_options();
-    $button = $options['navbar_button'];
+    $button  = $options['navbar_button'];
 
     if( $button ) {
          $output = sprintf('<a href="%s" class="navbar-btn">%s</a>', $button, __('Contakt Oss', 'sage'));
@@ -140,7 +145,7 @@ EOT;
 function sage_gravity_form($gform_field) {
 
     $output = '';
-    $form = Utils\sage_get_field($gform_field);
+    $form   = Utils\sage_get_field($gform_field);
 
     if( $form ) {
         $output = do_shortcode('[gravityform id="' . $form->id . '" title="true" description="true" ajax="true"]');
@@ -156,8 +161,8 @@ function sage_gravity_form($gform_field) {
 
 function sage_copyright() {
 
-    $output = '';
-    $options = Utils\sage_get_options();
+    $output    = '';
+    $options   = Utils\sage_get_options();
     $copyright = $options['copyright'];
 
     if( $copyright ) {
@@ -165,5 +170,55 @@ function sage_copyright() {
     }
 
     echo $output;
+
+}
+
+
+/**
+ * Flexible Layout content
+ */
+
+function sage_get_row_content ( $row ) {
+
+    $output        = '';
+    $layout        = $row['acf_fc_layout'];
+    $prefix        = $layout .'_';
+    $section_id    = $row['section_id'] ? $row['section_id'] : uniqid($prefix);
+
+    $bg_color      = $row['background_color'];
+    $bg_image      = $row['background_image'];
+    $bg_size       = $row['background_size'];
+    $bg_position   = $row['background_position_x'] .' '. $row['background_position_y'];
+    $bg_attachment = $row['background_attachment'];
+    $style         = '';
+
+    if ($bg_color) $style .= sprintf('background-color: %s; ', $bg_color);
+    if ($bg_image) $style .= sprintf('background-image: url(%s); ', $bg_image);
+    if ($bg_size) $style .= sprintf('background-size: %s; ', $bg_size);
+    if ($bg_position) $style .= sprintf('background-position: %s; ', $bg_position);
+    if ($bg_attachment) $style .= sprintf('background-attachment: %s; ', $bg_attachment);
+
+    if( $layout === 'video' ) {
+
+        preg_match('/(?<=src=\")[^\"]*/', $row['video'], $video_src);
+        preg_match('/(?<=width=\")[^\"]*/', $row['video'], $video_width);
+        preg_match('/(?<=height=\")[^\"]*/', $row['video'], $video_height);
+        $height = round($video_height[0] / $video_width[0] * 100);
+
+        $thumbnail = sprintf('<a href="%s" class="play-video" style="padding-bottom: %s"><img src="%s" alt="intro"></a>',
+            $video_src[0],
+            $height . '%',
+            $row['thumbnail']
+        );
+
+        $output = sprintf('<div class="video-wrapper">%s</div>', $thumbnail);
+
+    }
+
+    return <<<EOT
+        <div id="{$section_id}" class="section {$layout}" style="{$style}">
+            <div class="container">{$output}</div>
+        </div>
+EOT;
 
 }

@@ -26,13 +26,13 @@
 //
 // Grayscale and brand colors for use across Bootstrap.
 
-$gray-dark:                 #363636;
-$gray:                      #707070;
-$gray-light:                #a8a8a8;
-$gray-lighter:              #eceeef;
-$gray-lightest:             #f7f7f9;
+$gray-dark:                 #47433f;
+$gray:                      #a3a3a3;
+$gray-light:                #ededed;
+$gray-lighter:              #f3f3f3;
+$gray-lightest:             #f7f7f7;
 
-$brand-primary:             #45787d;
+$brand-primary:             #e5921b;
 $brand-success:             #5cb85c;
 $brand-info:                #5bc0de;
 $brand-warning:             #f0ad4e;
@@ -44,7 +44,7 @@ $brand-danger:              #d9534f;
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-flex:               true;
-$enable-rounded:            false;
+$enable-rounded:            true;
 $enable-shadows:            false;
 $enable-gradients:          false;
 $enable-transitions:        true;
@@ -86,7 +86,7 @@ $border-width:               1px;
 // Settings for the `<body>` element.
 
 $body-bg:                    #fff;
-$body-color:                 $gray;
+$body-color:                 $gray-dark;
 
 
 // Links
@@ -142,16 +142,16 @@ $grid-gutter-width:          1.875rem; // 30px
 //
 // Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:     Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:          "Droid Serif", Georgia, "Times New Roman", Times, serif;
+$font-family-sans-serif:     "proxima_nova_regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:          "daniel_black", Georgia, "Times New Roman", Times, serif;
 $font-family-monospace:      Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:           $font-family-sans-serif;
 
 // Pixel value used to responsively scale all typography. Applied to the `<html>` element.
-$font-size-root:             15px;
+$font-size-root:             16px;
 
 $font-size-base:             1rem;
-$font-size-lg:               1.875rem;
+$font-size-lg:               1.25rem;
 $font-size-sm:               .875rem;
 $font-size-xs:               .75rem;
 

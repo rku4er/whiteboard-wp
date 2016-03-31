@@ -16,18 +16,18 @@
 }
 
 @mixin padding-box($gutter-y: $grid-gutter-width, $gutter-x: $grid-gutter-width) {
-    padding: $gutter-y $gutter-x/2;
+    padding: $gutter-y $gutter-x;
 
     @include media (">=md") {
-        padding: $gutter-y*1.5 $gutter-x;
+        padding: $gutter-y*1.5 $gutter-x*1.5;
     }
 
     @include media (">=lg") {
-        padding: $gutter-y*2 $gutter-x*1.5;
+        padding: $gutter-y*2 $gutter-x*2;
     }
 
     @include media (">=xl") {
-        padding: $gutter-y*3 $gutter-x*2;
+        padding: $gutter-y*2.5 $gutter-x*2.5;
     }
 }
 

@@ -1,0 +1,36 @@
+.video-wrapper {
+    position: relative;
+
+    .play-video {
+        display: block;
+        height: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    img,
+    iframe {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%,-50%,0);
+        width: 25px;
+        height: 25px;
+    }
+
+    &:before {
+         background-color: $gray;
+    }
+}

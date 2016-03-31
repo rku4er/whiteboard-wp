@@ -171,6 +171,15 @@
             }
         });
 
+        $('.video-wrapper').each(function(){
+            $self = $(this);
+            $self.find('.play-video').click(function(e){
+                $video = '<iframe src="'+ $(this).attr('href') +'&autoplay=1" AllowFullscreen="true"></iframe>';
+                $(this).find('img').replaceWith($video);
+                e.preventDefault();
+            });
+        });
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired

@@ -2,6 +2,8 @@
 
 namespace Roots\Sage\Utils;
 
+use Roots\Sage\ACFmodules;
+
 
 /**
  * Custom Excerpt
@@ -156,4 +158,41 @@ function sage_get_the_excerpt($post_id) {
 
     return $output;
 }
+
+
+/**
+ * Creates flexible content instanse
+ * @param mixed $name Flexible content name
+ * @return 'void'
+ * @uses sage_init_flexible_content( $name )
+ */
+
+function sage_flexible_content() {
+
+    $output = '';
+    $field = 'content_rows';
+
+    // check if the flexible content field exists
+    if( sage_get_field( $field ) ){
+
+        // loop through the rows of data
+        while ( have_rows($field) ) : $row = the_row();
+
+            // collect layout content
+            $output .= ACFmodules\sage_get_row_content(get_row($row));
+
+        endwhile;
+
+
+    } else {
+
+        // return the content otherwise
+        $output = get_the_content();
+
+    }
+
+    echo $output;
+}
+
+
 

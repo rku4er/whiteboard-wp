@@ -271,7 +271,7 @@ function next_posts_link_attributes() {
  * Google fonts
  */
 
-add_action( 'wp_head', __NAMESPACE__ . '\\sage_embed_google_fonts', 10, 3 );
+//add_action( 'wp_head', __NAMESPACE__ . '\\sage_embed_google_fonts', 10, 3 );
 function sage_embed_google_fonts() { ?>
 
 <script type="text/javascript">

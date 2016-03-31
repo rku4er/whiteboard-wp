@@ -34,8 +34,32 @@
         },
         {
             "key": "field_56780c1b90bd9",
-            "label": "Navbar logo",
-            "name": "navbar_logo",
+            "label": "Navbar logo mobile",
+            "name": "navbar_logo_mobile",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "full",
+            "library": "uploadedTo",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_56fc0a2c6c1d6",
+            "label": "Navbar logo desktop",
+            "name": "navbar_logo_desktop",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -206,5 +230,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1459354940
+    "modified": 1459358347
 }
