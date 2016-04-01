@@ -170,12 +170,12 @@ add_action( 'login_enqueue_scripts', __NAMESPACE__ . '\\sage_login_logo' );
 function sage_login_logo() { ?>
     <style type="text/css">
         body.login div#login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/dist/images/backend-logo.png);
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/dist/images/login-logo.png);
             background-size: contain;
         }
         .login h1 a {
-            height: 138px !important;
-            width: 236px !important;
+            height: 52px !important;
+            width: 320px !important;
         }
     </style>
 <?php }

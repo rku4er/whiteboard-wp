@@ -17,7 +17,7 @@ function sage_navbar_logo() {
     $logo_sm = $options['navbar_logo_mobile'];
     $logo_lg = $options['navbar_logo_desktop'];
 
-    if( $logo_sm || $logo_lg ) {
+    if ($logo_sm || $logo_lg) {
 
         $output = sprintf('<a class="navbar-brand" href="%s"><span class="hidden-sm-up">%s</span><span class="hidden-xs-down">%s</span></a>',
             home_url('/'),
@@ -41,7 +41,7 @@ function sage_navbar_position_class() {
     $options         = Utils\sage_get_options();
     $navbar_position = $options['navbar_position'];
 
-    if( $navbar_position ) {
+    if ($navbar_position) {
         $output = 'navbar-'. $navbar_position;
     } else {
         $output = 'navbar-static-top';
@@ -62,7 +62,7 @@ function sage_navbar_phone() {
     $options = Utils\sage_get_options();
     $phone   = $options['navbar_phone'];
 
-    if( $phone ) {
+    if ($phone) {
         $output = sprintf('<a href="tel:+47%s" class="navbar-phone">(+47) %s</a>',
             preg_replace('/[^0-9]+/', '', $phone),
             $phone
@@ -82,10 +82,10 @@ function sage_navbar_button() {
 
     $output  = '';
     $options = Utils\sage_get_options();
-    $button  = $options['navbar_button'];
+    $id  = $options['contact_section_id'];
 
-    if( $button ) {
-         $output = sprintf('<a href="%s" class="navbar-btn">%s</a>', $button, __('Contakt Oss', 'sage'));
+    if ($id) {
+         $output = sprintf('<a href="#%s" class="navbar-btn">%s</a>', $id, __('Contakt Oss', 'sage'));
     }
 
     echo $output;
@@ -97,18 +97,16 @@ function sage_navbar_button() {
  *  Navbar menu
  */
 
-function sage_navbar_menu($id) {
+function sage_navbar_menu( $location = 'primary_navigation' ) {
 
     $output = '';
 
-    if ( $id && has_nav_menu('primary_navigation') ) {
-        $output = sprintf('<div class="collapse navbar-toggleable-xs" id="%s">%s</div>',
-            $id,
-            wp_nav_menu( array(
+    if (has_nav_menu( $location )) {
+        $output = wp_nav_menu( array(
+                'theme_location'=> $location,
                 'menu_class'    => 'nav navbar-nav',
                 'echo'          => false
-            ))
-        );
+            ));
     }
 
     echo $output;
@@ -124,7 +122,7 @@ function sage_navbar_menu_toggler($id) {
 
     $output = '';
 
-    if ( $id && has_nav_menu('primary_navigation') ) {
+    if ($id && has_nav_menu('primary_navigation')) {
         $output = <<<EOT
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#{$id}">
                 <span class="icon-menu">&#9776;</span>
@@ -147,7 +145,7 @@ function sage_gravity_form($gform_field) {
     $output = '';
     $form   = Utils\sage_get_field($gform_field);
 
-    if( $form ) {
+    if ($form) {
         $output = do_shortcode('[gravityform id="' . $form->id . '" title="true" description="true" ajax="true"]');
     }
 
@@ -165,7 +163,7 @@ function sage_copyright() {
     $options   = Utils\sage_get_options();
     $copyright = $options['copyright'];
 
-    if( $copyright ) {
+    if ($copyright) {
         $output = sprintf('<div class="copyright">%s</div>', $copyright);
     }
 
@@ -184,6 +182,7 @@ function sage_get_row_content ( $row ) {
     $layout        = $row['acf_fc_layout'];
     $prefix        = $layout .'_';
     $section_id    = $row['section_id'] ? $row['section_id'] : uniqid($prefix);
+    $section_title = $row['section_title'];
 
     $bg_color      = $row['background_color'];
     $bg_image      = $row['background_image'];
@@ -192,28 +191,67 @@ function sage_get_row_content ( $row ) {
     $bg_attachment = $row['background_attachment'];
     $style         = '';
 
+    if ($section_title) $output .= sprintf('<h2 class="section-title">%s</h2>', $section_title);
+
     if ($bg_color) $style .= sprintf('background-color: %s; ', $bg_color);
-    if ($bg_image) $style .= sprintf('background-image: url(%s); ', $bg_image);
-    if ($bg_size) $style .= sprintf('background-size: %s; ', $bg_size);
-    if ($bg_position) $style .= sprintf('background-position: %s; ', $bg_position);
-    if ($bg_attachment) $style .= sprintf('background-attachment: %s; ', $bg_attachment);
+    if ($bg_image) {
+        $style .= sprintf('background-image: url(%s); ', $bg_image);
+        if ($bg_size) $style .= sprintf('background-size: %s; ', $bg_size);
+        if ($bg_position) $style .= sprintf('background-position: %s; ', $bg_position);
+        if ($bg_attachment) $style .= sprintf('background-attachment: %s; ', $bg_attachment);
+    }
 
-    if( $layout === 'video' ) {
+    if ($layout === 'video') {
 
-        preg_match('/(?<=src=\")[^\"]*/', $row['video'], $video_src);
-        preg_match('/(?<=width=\")[^\"]*/', $row['video'], $video_width);
-        preg_match('/(?<=height=\")[^\"]*/', $row['video'], $video_height);
-        $height = round($video_height[0] / $video_width[0] * 100);
+        if ($row['video']) {
+            preg_match('/(?<=src=\")[^\"]*/', $row['video'], $video_src);
+            preg_match('/(?<=width=\")[^\"]*/', $row['video'], $video_width);
+            preg_match('/(?<=height=\")[^\"]*/', $row['video'], $video_height);
+            $video_percent_height = round($video_height[0] / $video_width[0] * 100);
 
-        $thumbnail = sprintf('<a href="%s" class="play-video" style="padding-bottom: %s"><img src="%s" alt="intro"></a>',
-            $video_src[0],
-            $height . '%',
-            $row['thumbnail']
-        );
+            $output .= <<<EOT
+                <div class="video-wrapper" style="padding-bottom: {$video_percent_height}%">
+                    <a href="{$video_src[0]}">
+                        <img src="{$row['thumbnail']}" alt="intro">
+                    </a>
+                </div>
+EOT;
+        }
 
-        $output = sprintf('<div class="video-wrapper">%s</div>', $thumbnail);
+    } elseif ($layout === 'goals') {
+
+        $goals = $row['goals'];
+
+        if ($goals) {
+            $output .= '<ul class="goals-wrapper">';
+            foreach ($goals as $goal) {
+                $output .= <<<EOT
+                    <li>
+                        <span class="thumb-wrapper">
+                            <img src="{$goal['icon']}" alt="goal-icon"/>
+                        </span>
+                        {$goal['text']}
+                    </li>
+EOT;
+            }
+            $output .= '</ul>';
+        }
+
+    } elseif ($layout === 'price') {
+
+        $header = __('Pris', 'sage') . $row['price'] . ' kr';
+
+        if ($row['content']) {
+            $output .= <<<EOT
+                <div class="price-wrapper">
+                    <header>{$header}</header>
+                    <div class="content">{$row['content']}</div>
+                </div>
+EOT;
+        }
 
     }
+
 
     return <<<EOT
         <div id="{$section_id}" class="section {$layout}" style="{$style}">

@@ -15,9 +15,9 @@
         </div>
     </div>
 
-    <div class="navbar-nav-wrapper">
+    <div id="nav-menu" class="navbar-nav-wrapper collapse navbar-toggleable-xs">
         <div class="container">
-            <?php ACFmodules\sage_navbar_menu('nav-menu'); ?>
+            <?php ACFmodules\sage_navbar_menu(); ?>
         </div>
     </div>
 

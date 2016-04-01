@@ -1,4 +1,5 @@
 .navbar{
+    background-color: #fff;
     border-bottom: 1px solid #ccc;
     padding: 0;
 
@@ -33,15 +34,16 @@
 
     /*fixed navbar*/
     &.navbar-fixed-top ~ .wrap{
-        margin-top: 126px;
+        margin-top: 129px;
     }
     &.navbar-fixed-bottom ~ .content-info{
-        margin-bottom: 126px;
+        margin-bottom: 129px;
     }
 
 
     .navbar-nav-wrapper {
         background-color: $gray-dark;
+        border-top: 3px solid $gray;
     }
 
     .navbar-brand{
@@ -151,6 +153,8 @@
 
     .navbar-nav {
         float: none;
+        padding-top: $grid-gutter-width;
+        padding-bottom: $grid-gutter-width;
 
         @include media ("<md") {
             text-align: center;
@@ -160,6 +164,8 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         @include media (">=md") {
@@ -170,12 +176,6 @@
             position: relative;
             margin-left: 0;
             float: none;
-
-            @include media ("<sm") {
-                 &:not(:last-child) {
-                     border-bottom: 1px solid $gray-lighter;
-                 }
-            }
 
             @include media (">=sm") {
                 display: inline-block;
@@ -201,12 +201,28 @@
 
         .nav-link {
             position: relative;
-            padding: $spacer;
+            padding: $spacer*0.5;
             font-size: $font-size-base;
             color: #fff;
+            text-transform: uppercase;
+
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                left: 0;
+                bottom: 100%;
+                height: 3px;
+                width: 100%;
+                background-color: $brand-primary;
+                opacity: 0;
+
+                @include transition(transform .2s ease-out);
+            }
 
             @include media (">=sm") {
                 padding: $spacer $spacer*0.5;
+                text-transform: none;
             }
 
             @include media (">=xl") {
@@ -215,11 +231,21 @@
 
             @include hover-focus{
                 color: $brand-primary;
+
+                @include media (">=sm") {
+                    &:before {
+                         opacity: 1;
+                    }
+                }
             }
         }
 
         .active >.nav-link {
             color: $brand-primary;
+
+            &:before {
+                 opacity: 1;
+            }
         }
     }
 }

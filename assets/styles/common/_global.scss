@@ -4,9 +4,36 @@ $breakpoints: $grid-breakpoints;
 
 /*nice transitions for links*/
 a{
-    @include transition(color .2s ease-in-out, background .2s ease-in-out);
+    @include transition(color .2s ease-in-out, background .2s ease-out);
 }
 
+// responsive headings
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.375rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+@include media (">=md") {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 2rem; }
+    h4 { font-size: 1.75rem; }
+    h5 { font-size: 1.5rem; }
+    h6 { font-size: 1.25rem; }
+}
+
+@include media (">=xl") {
+    h1 { font-size: 2.875rem; }
+    h2 { font-size: 2.625rem; }
+    h3 { font-size: 2.375rem; }
+    h4 { font-size: 2.125rem; }
+    h5 { font-size: 1.875rem; }
+    h6 { font-size: 1.625rem; }
+}
+
+// lead text
 .lead {
     color: $lead-color;
     font-family: $lead-font-family;

@@ -171,13 +171,10 @@
             }
         });
 
-        $('.video-wrapper').each(function(){
-            $self = $(this);
-            $self.find('.play-video').click(function(e){
-                $video = '<iframe src="'+ $(this).attr('href') +'&autoplay=1" AllowFullscreen="true"></iframe>';
-                $(this).find('img').replaceWith($video);
-                e.preventDefault();
-            });
+        $('.video-wrapper a').click(function(e){
+            $video = '<iframe src="'+ $(this).attr('href') +'&autoplay=1" AllowFullscreen="true"></iframe>';
+            $(this).replaceWith($video);
+            e.preventDefault();
         });
 
       },

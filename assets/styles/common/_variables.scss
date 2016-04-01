@@ -28,8 +28,8 @@
 
 $gray-dark:                 #47433f;
 $gray:                      #a3a3a3;
-$gray-light:                #ededed;
-$gray-lighter:              #f3f3f3;
+$gray-light:                #d7d7d7;
+$gray-lighter:              #ededed;
 $gray-lightest:             #f7f7f7;
 
 $brand-primary:             #e5921b;
@@ -45,7 +45,7 @@ $brand-danger:              #d9534f;
 
 $enable-flex:               true;
 $enable-rounded:            true;
-$enable-shadows:            false;
+$enable-shadows:            true;
 $enable-gradients:          false;
 $enable-transitions:        true;
 $enable-hover-media-query:  false;
@@ -142,7 +142,7 @@ $grid-gutter-width:          1.875rem; // 30px
 //
 // Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:     "proxima_nova_regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:     "proxima_nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif:          "daniel_black", Georgia, "Times New Roman", Times, serif;
 $font-family-monospace:      Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:           $font-family-sans-serif;
@@ -162,21 +162,21 @@ $font-size-h4:               1.5rem;
 $font-size-h5:               1.25rem;
 $font-size-h6:               1rem;
 
-$display1-size:               6rem;
-$display2-size:               5.5rem;
-$display3-size:               4.5rem;
-$display4-size:               3.5rem;
+$display1-size:              6rem;
+$display2-size:              5.5rem;
+$display3-size:              4.5rem;
+$display4-size:              3.5rem;
 
-$display1-weight:             300;
-$display2-weight:             300;
-$display3-weight:             300;
-$display4-weight:             300;
+$display1-weight:            300;
+$display2-weight:            300;
+$display3-weight:            300;
+$display4-weight:            300;
 
 $line-height:                1.6;
 
 $headings-margin-bottom:     1em;
 $headings-font-family:       $font-family-serif;
-$headings-font-weight:       700;
+$headings-font-weight:       400;
 $headings-line-height:       1.1;
 $headings-color:             $gray-dark;
 

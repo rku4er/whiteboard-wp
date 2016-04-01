@@ -19,7 +19,7 @@
                 "static-top": "Static top",
                 "fixed-top": "Fixed top",
                 "fixed-bottom": "Fixed bottom",
-                "sticky-top: Sticky top": "sticky-top: Sticky top"
+                "sticky-top": "Sticky top"
             },
             "default_value": [
                 "static-top"
@@ -81,27 +81,6 @@
             "mime_types": ""
         },
         {
-            "key": "field_56fbfbfb65b21",
-            "label": "Navbar button",
-            "name": "navbar_button",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "#contact_us",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
             "key": "field_56fbfc1465b22",
             "label": "Navbar phone",
             "name": "navbar_phone",
@@ -117,6 +96,27 @@
             "default_value": "",
             "placeholder": "",
             "prepend": "(+47)",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "key": "field_56fbfbfb65b21",
+            "label": "Contact section ID",
+            "name": "contact_section_id",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "contact",
+            "placeholder": "",
+            "prepend": "",
             "append": "",
             "maxlength": "",
             "readonly": 0,
@@ -230,5 +230,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1459358347
+    "modified": 1459508477
 }
