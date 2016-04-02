@@ -1,7 +1,7 @@
 .gform_wrapper ul {
     @extend .list-unstyled;
 }
-.gform_wrapper li {
+.gform_wrapper .gfield {
     @extend .form-group;
 }
 .gform_wrapper form {
@@ -11,7 +11,7 @@
     padding-left: 1px;
     color: $state-danger-text;
 }
-.ginput_container input,
+.ginput_container input:not([type="radio"]):not([type="checkbox"]),
 .ginput_container select,
 .ginput_container textarea {
     @extend .form-control;
@@ -21,7 +21,8 @@
 }
 .gform_button {
     @extend .btn;
-    @extend .btn-primary-outline;
+    @extend .btn-lg;
+    @extend .btn-primary;
 }
 .gform_wrapper .gfield_error {
     .gfield_label {

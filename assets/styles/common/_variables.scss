@@ -172,7 +172,7 @@ $display2-weight:            300;
 $display3-weight:            300;
 $display4-weight:            300;
 
-$line-height:                1.6;
+$line-height:                1.2;
 
 $headings-margin-bottom:     1em;
 $headings-font-family:       $font-family-serif;
@@ -301,7 +301,7 @@ $input-border-radius-lg:         $border-radius-lg;
 $input-border-radius-sm:         $border-radius-sm;
 
 $input-border-focus:             lighten($brand-primary, 10%);
-$input-box-shadow-focus:         rgba(102,175,233,.6);
+$input-box-shadow-focus:         transparentize($brand-primary, 0.6);
 
 $input-color-placeholder:        #999;
 

@@ -85,7 +85,7 @@ function sage_navbar_button() {
     $id  = $options['contact_section_id'];
 
     if ($id) {
-         $output = sprintf('<a href="#%s" class="navbar-btn">%s</a>', $id, __('Contakt Oss', 'sage'));
+         $output = sprintf('<a href="#%s" class="navbar-btn">%s</a>', $id, __('Kontakt Oss', 'sage'));
     }
 
     echo $output;
@@ -187,6 +187,7 @@ function sage_get_row_content ( $row ) {
     $bg_color      = $row['background_color'];
     $bg_image      = $row['background_image'];
     $bg_size       = $row['background_size'];
+    $bg_repeat     = $row['background_repeat'];
     $bg_position   = $row['background_position_x'] .' '. $row['background_position_y'];
     $bg_attachment = $row['background_attachment'];
     $style         = '';
@@ -197,6 +198,7 @@ function sage_get_row_content ( $row ) {
     if ($bg_image) {
         $style .= sprintf('background-image: url(%s); ', $bg_image);
         if ($bg_size) $style .= sprintf('background-size: %s; ', $bg_size);
+        if ($bg_repeat) $style .= sprintf('background-repeat: %s; ', $bg_repeat);
         if ($bg_position) $style .= sprintf('background-position: %s; ', $bg_position);
         if ($bg_attachment) $style .= sprintf('background-attachment: %s; ', $bg_attachment);
     }
@@ -210,11 +212,12 @@ function sage_get_row_content ( $row ) {
             $video_percent_height = round($video_height[0] / $video_width[0] * 100);
 
             $output .= <<<EOT
-                <div class="video-wrapper" style="padding-bottom: {$video_percent_height}%">
-                    <a href="{$video_src[0]}">
-                        <img src="{$row['thumbnail']}" alt="intro">
-                    </a>
-                </div>
+
+            <div class="video-wrapper" style="padding-bottom: {$video_percent_height}%">
+                <a href="{$video_src[0]}">
+                    <img src="{$row['thumbnail']}" alt="intro">
+                </a>
+            </div>
 EOT;
         }
 
@@ -226,12 +229,13 @@ EOT;
             $output .= '<ul class="goals-wrapper">';
             foreach ($goals as $goal) {
                 $output .= <<<EOT
-                    <li>
-                        <span class="thumb-wrapper">
-                            <img src="{$goal['icon']}" alt="goal-icon"/>
-                        </span>
-                        {$goal['text']}
-                    </li>
+
+                <li>
+                    <span class="thumb-wrapper">
+                        <img src="{$goal['icon']}" alt="goal-icon"/>
+                    </span>
+                    {$goal['text']}
+                </li>
 EOT;
             }
             $output .= '</ul>';
@@ -239,14 +243,58 @@ EOT;
 
     } elseif ($layout === 'price') {
 
-        $header = __('Pris', 'sage') . $row['price'] . ' kr';
+        $title =  __('Pris', 'sage');
 
         if ($row['content']) {
             $output .= <<<EOT
-                <div class="price-wrapper">
-                    <header>{$header}</header>
-                    <div class="content">{$row['content']}</div>
+
+            <div class="price-wrapper">
+                <header class="price">
+                    <span class="title">{$title}:</span>
+                    <span class="amount">
+                        {$row['price']}<span class="addon">kr</span>
+                    </span>
+                </header>
+                <div class="content">{$row['content']}</div>
+            </div>
+EOT;
+        }
+
+    } elseif ($layout === 'portfolio') {
+
+        $carousel =  $row['carousel'];
+
+        if ($carousel) {
+            $output .= <<<EOT
+
+            <div class="portfolio-wrapper">
+                <div class="jcarousel">
+                    <ul>
+EOT;
+
+            foreach ($carousel as $item) {
+                $output .= <<<EOT
+
+                <li>
+                    <div class="thumb-wrapper">
+                        <a href="{$item['video']}" class="video-lightbox">
+                            <img src="{$item['thumb']}" alt="{$item['title']}">
+                        </a>
+                    </div>
+                </li>
+EOT;
+            }
+            $output .= <<<EOT
+
+                    </ul>
                 </div>
+                <button type="button" class="jcarousel-control-prev">
+                    <svg xmlns='http://www.w3.org/2000/svg' class="icon"><use xlink:href="#prev"></use></svg>
+                </button>
+                <button type="button" class="jcarousel-control-next">
+                    <svg xmlns='http://www.w3.org/2000/svg' class="icon"><use xlink:href="#next"></use></svg>
+                </button>
+            </div>
 EOT;
         }
 

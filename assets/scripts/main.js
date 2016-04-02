@@ -38,25 +38,28 @@
           };
         }
 
-        function custom_inputs(parent) {
-
-            // Material choices
-            $(parent).find('.checkbox input[type=checkbox]').after("<span class=checkbox-material><span class=check></span></span>");
-            $(parent).find('.radio input[type=radio]').after("<span class=radio-material><span class=circle></span><span class=check></span></span>");
-            $(parent).find('.togglebutton input[type=checkbox]').after("<span class=toggle></span>");
-
-            // Gravity Forms render tweak
-            $(parent).find('.gfield_checkbox > li').addClass('checkbox');
-            $(parent).find('.gfield_radio > li').addClass('radio');
-            $(parent).find('select.gfield_select').addClass('form-control');
+        // Gravity Forms custom input classes
+        function gravity_forms_custom_input_classes(form) {
+            $(form).find('.gfield_checkbox > li').addClass('checkbox-wrapper');
+            $(form).find('.gfield_radio > li').addClass('radio-wrapper');
         }
 
+        // Material inputs
+        function material_input_html(form) {
+            $(form).find('.checkbox-wrapper input[type=checkbox]').after("<span class=checkbox-material><span class=check></span></span>");
+            $(form).find('.radio-wrapper input[type=radio]').after("<span class=radio-material><span class=circle></span><span class=check></span></span>");
+            $(form).find('.togglebutton input[type=checkbox]').after("<span class=toggle></span>");
+        }
 
-        // apply material inputs on ajax forms
+        // apply material inputs to static gravity forms
+        gravity_forms_custom_input_classes($('.gform_wrapper'));
+        material_input_html($('.gform_wrapper'));
+
+        // apply material inputs to gravity forms on ajax reload
         $(document).bind('gform_post_render', function(event, form_id, cur_page){
-            custom_inputs($('#gform_' + form_id));
+            gravity_forms_custom_input_classes($('#gform_' + form_id));
+            material_input_html($('#gform_' + form_id));
         });
-
 
         // wait until users finishes resizing the browser
         var debouncedResize = debounce(function() {
@@ -105,7 +108,40 @@
         // Responsive video
         $('.main').fitVids();
 
-        // Video lightbox
+        // carousel
+        $('.jcarousel').jcarousel({
+            animation: {
+                duration: 500,
+                easing:   'ease-out'
+            },
+            transitions: Modernizr.csstransitions ? {
+                transforms:   Modernizr.csstransforms,
+                transforms3d: Modernizr.csstransforms3d,
+                easing:       'ease-out'
+            } : false,
+            wrap: 'circular'
+        }).on('jcarousel:reload jcarousel:create', function () {
+            var carousel = $(this),
+                width = carousel.innerWidth();
+
+            if (width >= 528) {
+                width = width / 3;
+            } else if (width >= 334) {
+                width = width / 2;
+            }
+
+            carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+        });
+
+        // carousel controls
+        $('.jcarousel-control-next').jcarouselControl({
+            target: '+=1'
+        });
+        $('.jcarousel-control-prev').jcarouselControl({
+            target: '-=1'
+        });
+
+       // Video lightbox
         $('.video-lightbox').magnificPopup({
             type: 'iframe'
         });

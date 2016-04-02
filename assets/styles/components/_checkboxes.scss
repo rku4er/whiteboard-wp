@@ -5,10 +5,7 @@ $checkbox-size: 20px;
 $checkbox-animation-ripple: 0.5s;
 $checkbox-animation-check: 0.3s;
 
-.form-horizontal .checkbox {
-  padding-top: 20px;
-}
-body:not(.mce-content-body) .checkbox input[type=checkbox]{
+body:not(.mce-content-body) .checkbox-wrapper input[type=checkbox]{
     opacity: 0;
     position: absolute;
     margin: 0;
@@ -19,8 +16,8 @@ body:not(.mce-content-body) .checkbox input[type=checkbox]{
     left: 0;
     pointer-events: none;
 }
-.checkbox {
-  transform: translateZ(0);
+.checkbox-wrapper {
+  transform: translate3d(0,0,0);
 
   label {
     cursor: pointer;

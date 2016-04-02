@@ -14,11 +14,18 @@
     "magnific-popup": "~1.0.0",
     "include-media": "~1.4.2",
     "tether": "~1.2.0",
-    "bootstrap": "v4.0.0-alpha.2"
+    "bootstrap": "v4.0.0-alpha.2",
+    "jcarousel": "~0.3.4"
   },
   "overrides": {
     "modernizr": {
       "main": "./modernizr.js"
+    },
+    "jcarousel" : {
+      "main": [
+        "./dist/jquery.jcarousel-core.js",
+        "./dist/jquery.jcarousel-control.js"
+      ]
     }
   }
 }

@@ -187,7 +187,7 @@ function sage_flexible_content() {
     } else {
 
         // return the content otherwise
-        $output = get_the_content();
+        $output .= sprintf('<div class="container hentry">%s</div>', apply_filters('the_content', get_the_content()));
 
     }
 
