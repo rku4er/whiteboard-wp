@@ -118,8 +118,8 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         .title {
             font-family: $font-family-serif;
             font-size: $font-size-base*1.5;
-            color: darken($gray, 3%);
             margin-right: $spacer;
+            margin-bottom: 0;
             flex: 1;
 
             @include media (">=md") {
@@ -179,8 +179,17 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
 
 .portfolio-wrapper {
-    padding: 0 $grid-gutter-width*2;
     position: relative;
+    margin-left: -$grid-gutter-width/2;
+    margin-right: -$grid-gutter-width/2;
+
+    padding: $grid-gutter-width $grid-gutter-width*2;
+    padding-right: $grid-gutter-width*2;
+
+    @include media (">=md") {
+        padding-left: $grid-gutter-width*2.5;
+        padding-right: $grid-gutter-width*2.5;
+    }
 
     .icon {
         width: $grid-gutter-width*2;
@@ -196,6 +205,16 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         position: absolute;
         top: 50%;
         transform: translate3d(0,-50%,0);
+
+        .icon {
+            @include transition(fill .2s ease-out);
+        }
+
+        @include hover-focus {
+            .icon {
+                fill: $brand-primary;
+            }
+        }
     }
 
     .jcarousel-control-prev {
@@ -207,25 +226,180 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     }
 
     .thumb-wrapper {
-         padding-left: $grid-gutter-width/2;
-         padding-right: $grid-gutter-width/2;
+         margin-left: $grid-gutter-width/2;
+         margin-right: $grid-gutter-width/2;
+         border: 2px solid $gray-lightest;
+         padding: $spacer/2;
 
         a{
-            border: 1px solid $gray-lightest;
             display: block;
             position: relative;
             overflow: hidden;
             height: 0;
             padding-bottom: 60%;
 
-            img {
+            &:before,
+            &:after {
+                content: "";
+                display: block;
                 position: absolute;
-                top: 0;
-                left: 0;
+                z-index: 1;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%,-50%,0);
+            }
+
+            &:before {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
+                opacity: 0;
+                background-color: $brand-primary;
+                @include transition(opacity .2s ease-out);
+            }
+
+            &:after {
+                width: 50px;
+                height: 50px;
+                background: url($icon-play) no-repeat 60% 50%;
+                background-size: 40% 40%;
+
+                padding: 15px;
+                background-color: rgba(0,0,0,.8);
+                @include border-radius(50%);
+                @include transition(background .2s ease-out);
+            }
+
+            @include hover-focus {
+
+                &:before {
+                     opacity: .3;
+                }
+
+                &:after {
+                     background-color: $brand-primary;
+                }
             }
         }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
     }
+
+    .title {
+        margin-left: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width/2;
+        font-family: $font-family-sans-serif;
+        text-align: center;
+        margin-bottom: 0;
+        font-size: $font-size-base*1.125;
+        margin-top: $spacer*0.8;
+    }
+
+}
+
+.testimonial-wrapper {
+
+    @include media (">=md") {
+        padding-left: $grid-gutter-width*3;
+        padding-right: $grid-gutter-width*3;
+    }
+
+    .carousel-inner {
+        @include list-unstyled();
+        margin-bottom: 0;
+    }
+
+
+    .quote {
+        margin-bottom: 0;
+
+        p {
+            font-size: $font-size-base*1.0625;
+            color: #fff;
+            line-height: 1.47;
+
+            @include media (">=md") {
+                text-align: center;
+            }
+        }
+
+    }
+
+    .author {
+
+        @include media ("<md") {
+            padding-left: $grid-gutter-width*2;
+            padding-right: $grid-gutter-width*2;
+        }
+
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .thumb {
+        width: 45px;
+        height: 45px;
+        margin-right: $spacer;
+        @include border-radius(50%);
+
+        @include media (">=md") {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    .cite {
+    }
+
+    .name,
+    .position {
+        font-size: $font-size-base*1.0625;
+        display: block;
+    }
+
+    .name {
+        font-size: $font-size-base*1.1875;
+    }
+
+    .position {
+    }
+
+
+    .carousel-control {
+         background: none;
+         width: $grid-gutter-width*2;
+         height: $grid-gutter-width*2;
+         top: auto;
+
+         @include media (">=md") {
+             width: $grid-gutter-width*3;
+             height: auto;
+             top: 0;
+         }
+
+         .icon {
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translate3d(0,-50%,0);
+              width: 100%;
+              text-align: center;
+              fill: #fff;
+
+         }
+    }
+
+}
+
+.text-wrapper {
+    font-size: $font-size-base*1.125;
 }

@@ -3,6 +3,7 @@
         .carousel-item {
             opacity: 0;
             transition-property: opacity;
+            transition-timing-function: ease-out;
 
             &.active {
                 opacity: 1;

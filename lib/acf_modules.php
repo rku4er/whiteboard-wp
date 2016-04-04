@@ -184,6 +184,8 @@ function sage_get_row_content ( $row ) {
     $section_id    = $row['section_id'] ? $row['section_id'] : uniqid($prefix);
     $section_title = $row['section_title'];
 
+    $title_color   = $row['title_color'];
+    $content_color = $row['content_color'];
     $bg_color      = $row['background_color'];
     $bg_image      = $row['background_image'];
     $bg_size       = $row['background_size'];
@@ -192,7 +194,9 @@ function sage_get_row_content ( $row ) {
     $bg_attachment = $row['background_attachment'];
     $style         = '';
 
-    if ($section_title) $output .= sprintf('<h2 class="section-title">%s</h2>', $section_title);
+    if ($section_title && $layout !== 'price' ) $output .= <<<EOT
+        <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
+EOT;
 
     if ($bg_color) $style .= sprintf('background-color: %s; ', $bg_color);
     if ($bg_image) {
@@ -243,14 +247,12 @@ EOT;
 
     } elseif ($layout === 'price') {
 
-        $title =  __('Pris', 'sage');
-
         if ($row['content']) {
             $output .= <<<EOT
 
             <div class="price-wrapper">
                 <header class="price">
-                    <span class="title">{$title}:</span>
+                    <h3 class="title" style="color: {$title_color}">{$section_title}</h3>
                     <span class="amount">
                         {$row['price']}<span class="addon">kr</span>
                     </span>
@@ -263,11 +265,12 @@ EOT;
     } elseif ($layout === 'portfolio') {
 
         $carousel =  $row['carousel'];
+        $carouselID = 'portfolio-carousel';
 
         if ($carousel) {
             $output .= <<<EOT
 
-            <div class="portfolio-wrapper">
+            <div id="{$carouselID}"  class="portfolio-wrapper">
                 <div class="jcarousel">
                     <ul>
 EOT;
@@ -281,6 +284,7 @@ EOT;
                             <img src="{$item['thumb']}" alt="{$item['title']}">
                         </a>
                     </div>
+                    <h3 class="title">{$item['title']}</h3>
                 </li>
 EOT;
             }
@@ -298,7 +302,71 @@ EOT;
 EOT;
         }
 
+    } elseif ($layout === 'testimonials') {
+
+        $carousel =  $row['carousel'];
+        $carouselID = 'testimonial-carousel';
+        $indicators = array();
+
+        if ($carousel) {
+            $output .= <<<EOT
+
+            <div id="{$carouselID}" class="testimonial-wrapper carousel slide" data-ride="carousel" data-interval="0">
+                <ul class="carousel-inner" role="listbox">
+EOT;
+            $i=-1;
+
+            foreach ($carousel as $item) {
+                $i++;
+                $active = ($i === 0) ? 'active' : '';
+
+                $output .= <<<EOT
+
+                <li class="carousel-item {$active}">
+                    <blockquote class="quote">
+                        {$item['quote']}
+                        <footer class="author">
+                            <img class="thumb" src="{$item['thumb']['sizes']['thumbnail']}" alt="{$item['name']}">
+                            <span class="cite">
+                                <strong class="name">{$item['name']}</strong>
+                                <em class="position">{$item['position']}</em>
+                            </span>
+                        </footer>
+                    </blockquote>
+                </li>
+EOT;
+            }
+
+            $output .= <<<EOT
+
+                </ul>
+
+                <a class="left carousel-control" href="#{$carouselID}" role="button" data-slide="prev">
+                  <svg xmlns='http://www.w3.org/2000/svg' aria-hidden="true" class="icon"><use xlink:href="#left"></use></svg>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#{$carouselID}" role="button" data-slide="next">
+                  <svg xmlns='http://www.w3.org/2000/svg' aria-hidden="true" class="icon"><use xlink:href="#right"></use></svg>
+                  <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+EOT;
+        }
+
+    } elseif ($layout === 'text') {
+
+        if ($row['content']) {
+            $output .= <<<EOT
+
+            <div class="text-wrapper">
+                <div class="content" style="color: {$content_color}">{$row['content']}</div>
+            </div>
+EOT;
+        }
+
     }
+
 
 
     return <<<EOT
@@ -308,3 +376,5 @@ EOT;
 EOT;
 
 }
+
+

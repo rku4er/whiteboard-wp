@@ -265,26 +265,3 @@ function prev_posts_link_attributes() {
 function next_posts_link_attributes() {
     return 'class="next-posts-link"';
 }
-
-
-/**
- * Google fonts
- */
-
-//add_action( 'wp_head', __NAMESPACE__ . '\\sage_embed_google_fonts', 10, 3 );
-function sage_embed_google_fonts() { ?>
-
-<script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Lato:400,300,300italic,400italic,700italic,700:latin', 'Droid+Serif:400,400italic,700,700italic:latin' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })(); </script>
-
-<?php }

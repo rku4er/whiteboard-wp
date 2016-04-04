@@ -124,9 +124,9 @@
             var carousel = $(this),
                 width = carousel.innerWidth();
 
-            if (width >= 528) {
+            if (width >= 648) {
                 width = width / 3;
-            } else if (width >= 334) {
+            } else if (width >= 454) {
                 width = width / 2;
             }
 
