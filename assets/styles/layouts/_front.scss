@@ -183,8 +183,10 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     margin-left: -$grid-gutter-width/2;
     margin-right: -$grid-gutter-width/2;
 
-    padding: $grid-gutter-width $grid-gutter-width*2;
-    padding-right: $grid-gutter-width*2;
+    @include media (">=sm") {
+        padding-left: $grid-gutter-width*2;
+        padding-right: $grid-gutter-width*2;
+    }
 
     @include media (">=md") {
         padding-left: $grid-gutter-width*2.5;
@@ -203,8 +205,17 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         border: 0 none;
         padding: 0;
         position: absolute;
-        top: 50%;
-        transform: translate3d(0,-50%,0);
+
+        top: auto;
+        bottom: 0;
+        height: $grid-gutter-width*2;
+
+        @include media (">=sm") {
+            top: 50%;
+            bottom: auto;
+            transform: translate3d(0,-50%,0);
+            height: auto;
+        }
 
         .icon {
             @include transition(fill .2s ease-out);
@@ -293,13 +304,19 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     }
 
     .title {
-        margin-left: $grid-gutter-width/2;
-        margin-right: $grid-gutter-width/2;
+        margin-left: $grid-gutter-width*2;
+        margin-right: $grid-gutter-width*2;
         font-family: $font-family-sans-serif;
         text-align: center;
         margin-bottom: 0;
         font-size: $font-size-base*1.125;
-        margin-top: $spacer*0.8;
+        padding-top: $spacer*2;
+        padding-bottom: $spacer*1.5;
+
+        @include media (">=sm") {
+            margin-left: $grid-gutter-width/2;
+            margin-right: $grid-gutter-width/2;
+        }
     }
 
 }
@@ -324,10 +341,8 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             font-size: $font-size-base*1.0625;
             color: #fff;
             line-height: 1.47;
-
-            @include media (">=md") {
-                text-align: center;
-            }
+            text-align: center;
+            margin-bottom: $spacer*2;
         }
 
     }
@@ -357,9 +372,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         }
     }
 
-    .cite {
-    }
-
     .name,
     .position {
         font-size: $font-size-base*1.0625;
@@ -368,9 +380,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
     .name {
         font-size: $font-size-base*1.1875;
-    }
-
-    .position {
     }
 
 
@@ -388,10 +397,9 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
          .icon {
               position: absolute;
-              left: 0;
+              left: 50%;
               top: 50%;
-              transform: translate3d(0,-50%,0);
-              width: 100%;
+              transform: translate3d(-50%,-50%,0);
               text-align: center;
               fill: #fff;
 
