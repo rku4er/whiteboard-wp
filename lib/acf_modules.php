@@ -7,6 +7,18 @@ use Roots\Sage\Titles;
 
 
 /**
+ * Get gravity form
+ */
+
+function sage_get_gravity_form($form_object) {
+
+    if( $form_object ) {
+        return do_shortcode('[gravityform id="' . $form_object->id . '" title="true" description="true" ajax="true"]');
+    }
+}
+
+
+/**
  *  Navbar Logo
  */
 
@@ -19,12 +31,21 @@ function sage_navbar_logo() {
 
     if ($logo_sm || $logo_lg) {
 
-        $output = sprintf('<a class="navbar-brand" href="%s"><span class="hidden-sm-up">%s</span><span class="hidden-xs-down">%s</span></a>',
-            home_url('/'),
-            sprintf('<img src="%s" alt="%s">', $logo_sm['url'], get_bloginfo('name')),
-            sprintf('<img src="%s" alt="%s">', $logo_lg['url'], get_bloginfo('name'))
-        );
+        $blogname = get_bloginfo('name');
+        $tag      = (is_front_page()) ? 'h1' : 'a';
+        $href     = (!is_front_page()) ? 'href="'. home_url('/') .'"' : '';
 
+        $output .= <<<EOT
+
+        <{$tag} class="navbar-brand" {$href}>
+            <span class="hidden-sm-up">
+                <img src="{$logo_sm['url']}" alt="{$blogname}">
+            </span>
+            <span class="hidden-xs-down">
+                <img src="{$logo_lg['url']}" alt="{$blogname}">
+            </span>
+        </{$tag}>
+EOT;
     }
 
     echo $output;
@@ -63,10 +84,13 @@ function sage_navbar_phone() {
     $phone   = $options['navbar_phone'];
 
     if ($phone) {
-        $output = sprintf('<a href="tel:+47%s" class="navbar-phone">(+47) %s</a>',
-            preg_replace('/[^0-9]+/', '', $phone),
-            $phone
-        );
+        $phone_trim = preg_replace('/[^0-9]+/', '', $phone);
+        $output .= <<<EOT
+
+        <a href="tel:+47{$phone_trim}" class="navbar-phone">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#phone"></use></svg>
+            (+47) {$phone}</a>
+EOT;
     }
 
     echo $output;
@@ -85,7 +109,7 @@ function sage_navbar_button() {
     $id  = $options['contact_section_id'];
 
     if ($id) {
-         $output = sprintf('<a href="#%s" class="navbar-btn">%s</a>', $id, __('Kontakt Oss', 'sage'));
+         $output = sprintf('<a href="#%s" class="navbar-btn nav-link">%s</a>', $id, __('Kontakt Oss', 'sage'));
     }
 
     echo $output;
@@ -192,19 +216,19 @@ function sage_get_row_content ( $row ) {
     $bg_repeat     = $row['background_repeat'];
     $bg_position   = $row['background_position_x'] .' '. $row['background_position_y'];
     $bg_attachment = $row['background_attachment'];
-    $style         = '';
+    $section_style         = '';
 
     if ($section_title && $layout !== 'price' ) $output .= <<<EOT
         <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
 EOT;
 
-    if ($bg_color) $style .= sprintf('background-color: %s; ', $bg_color);
+    if ($bg_color) $section_style .= sprintf('background-color: %s; ', $bg_color);
     if ($bg_image) {
-        $style .= sprintf('background-image: url(%s); ', $bg_image);
-        if ($bg_size) $style .= sprintf('background-size: %s; ', $bg_size);
-        if ($bg_repeat) $style .= sprintf('background-repeat: %s; ', $bg_repeat);
-        if ($bg_position) $style .= sprintf('background-position: %s; ', $bg_position);
-        if ($bg_attachment) $style .= sprintf('background-attachment: %s; ', $bg_attachment);
+        $section_style .= sprintf('background-image: url(%s); ', $bg_image);
+        if ($bg_size) $section_style .= sprintf('background-size: %s; ', $bg_size);
+        if ($bg_repeat) $section_style .= sprintf('background-repeat: %s; ', $bg_repeat);
+        if ($bg_position) $section_style .= sprintf('background-position: %s; ', $bg_position);
+        if ($bg_attachment) $section_style .= sprintf('background-attachment: %s; ', $bg_attachment);
     }
 
     if ($layout === 'video') {
@@ -217,7 +241,7 @@ EOT;
 
             $output .= <<<EOT
 
-            <div class="video-wrapper" style="padding-bottom: {$video_percent_height}%">
+            <div class="{$layout}-wrapper" style="padding-bottom: {$video_percent_height}%">
                 <a href="{$video_src[0]}">
                     <img src="{$row['thumbnail']}" alt="intro">
                 </a>
@@ -230,7 +254,7 @@ EOT;
         $goals = $row['goals'];
 
         if ($goals) {
-            $output .= '<ul class="goals-wrapper">';
+            $output .= '<ul class="'. $layout .'-wrapper">';
             foreach ($goals as $goal) {
                 $output .= <<<EOT
 
@@ -250,7 +274,7 @@ EOT;
         if ($row['content']) {
             $output .= <<<EOT
 
-            <div class="price-wrapper">
+            <div class="{$layout}-wrapper">
                 <header class="price">
                     <h3 class="title" style="color: {$title_color}">{$section_title}</h3>
                     <span class="amount">
@@ -270,7 +294,7 @@ EOT;
         if ($carousel) {
             $output .= <<<EOT
 
-            <div id="{$carouselID}"  class="portfolio-wrapper">
+            <div id="{$carouselID}"  class="{$layout}-wrapper">
                 <div class="jcarousel">
                     <ul>
 EOT;
@@ -293,10 +317,10 @@ EOT;
                     </ul>
                 </div>
                 <button type="button" class="jcarousel-control-prev">
-                    <svg xmlns='http://www.w3.org/2000/svg' class="icon"><use xlink:href="#prev"></use></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon"><use xlink:href="#prev"></use></svg>
                 </button>
                 <button type="button" class="jcarousel-control-next">
-                    <svg xmlns='http://www.w3.org/2000/svg' class="icon"><use xlink:href="#next"></use></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon"><use xlink:href="#next"></use></svg>
                 </button>
             </div>
 EOT;
@@ -311,7 +335,7 @@ EOT;
         if ($carousel) {
             $output .= <<<EOT
 
-            <div id="{$carouselID}" class="testimonial-wrapper carousel slide" data-ride="carousel" data-interval="0">
+            <div id="{$carouselID}" class="{$layout}-wrapper carousel slide" data-ride="carousel" data-interval="0">
                 <ul class="carousel-inner" role="listbox">
 EOT;
             $i=-1;
@@ -342,11 +366,11 @@ EOT;
                 </ul>
 
                 <a class="left carousel-control" href="#{$carouselID}" role="button" data-slide="prev">
-                  <svg xmlns='http://www.w3.org/2000/svg' aria-hidden="true" class="icon"><use xlink:href="#left"></use></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon"><use xlink:href="#left"></use></svg>
                   <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#{$carouselID}" role="button" data-slide="next">
-                  <svg xmlns='http://www.w3.org/2000/svg' aria-hidden="true" class="icon"><use xlink:href="#right"></use></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon"><use xlink:href="#right"></use></svg>
                   <span class="sr-only">Next</span>
                 </a>
 
@@ -359,22 +383,110 @@ EOT;
         if ($row['content']) {
             $output .= <<<EOT
 
-            <div class="text-wrapper">
-                <div class="content" style="color: {$content_color}">{$row['content']}</div>
+            <div class="{$layout}-wrapper">
+                <div class="content">{$row['content']}</div>
             </div>
 EOT;
         }
 
-    }
+    } elseif ($layout === 'ordering') {
+
+       $items = $row['items'];
+
+       if ($items) {
+           $output .= '<ol class="'. $layout .'-wrapper">';
+
+           $i = 0;
+           foreach ($items as $item) {
+               $i++;
+               $id = ($i%7 !== 0) ? $i%7 : 7;
+
+               $output .= <<<EOT
+
+               <li>
+                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#forma{$id}"></use></svg>
+                   <h3 class="title">{$item['title']}</h3>
+                   <div class="description">{$item['description']}</div>
+               </li>
+EOT;
+           }
+           $output .= '</ol>';
+       }
+
+   } elseif ($layout === 'contact') {
+
+       $blogname = get_bloginfo('name');
+       $phone_trim = preg_replace('/[^0-9]+/', '', $row['phone']);
+       $contact_form = sage_get_gravity_form($row['contact_form']);
+
+       $output .= <<<EOT
+
+        <div class="{$layout}-wrapper">
+            <div class="column">
+                <p class="logo"><img src="{$row['logo']}" alt="{$blogname}"/></p>
+                <ul class="contacts">
+                    <li>
+                        <span class="address">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#point"></use></svg>
+                            {$row['address']}
+                        </span>
+                    </li>
+                    <li>
+                        <a href="mailto:{$row['email']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#sign"></use></svg>
+                            {$row['email']}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+47{$phone_trim}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#phone"></use></svg>
+                            (+47) {$row['phone']}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="socials">
+                    <li>
+                        <a href="{$row['facebook']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#facebook"></use></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{$row['twitter']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#twitter"></use></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{$row['vimeo']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#vimeo"></use></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{$row['youtube']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#youtube"></use></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{$row['pinterest']}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" ><use xlink:href="#pinterest"></use></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="column">{$contact_form}</div>
+        </div>
+EOT;
+
+   }
 
 
+
+    $content_style = $content_color ? sprintf('style="color: %s"', $content_color) : '';
 
     return <<<EOT
-        <div id="{$section_id}" class="section {$layout}" style="{$style}">
-            <div class="container">{$output}</div>
+        <div id="{$section_id}" class="section {$layout}" style="{$section_style}">
+            <div class="container" {$content_style}>{$output}</div>
         </div>
 EOT;
 
 }
-
 

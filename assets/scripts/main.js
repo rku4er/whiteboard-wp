@@ -19,6 +19,16 @@
     'common': {
       init: function() {
 
+
+        // helper functions
+        Array.prototype.max = function () {
+            return Math.max.apply(Math, this);
+        };
+
+        Array.prototype.min = function () {
+            return Math.min.apply(Math, this);
+        };
+
         // Debounced resize
         function debounce(func, wait, immediate) {
           var timeout;
@@ -84,6 +94,20 @@
 
                 // footer offset
                 $('.content-info').css('padding-bottom', $self.height());
+            });
+
+            // carousel min-height
+            $('.carousel-inner').each(function() {
+                var $slides = $(this).children(),
+                    $maxHeight = [];
+
+                $slides.each(function(i){
+                    if ($(this).height() > $maxHeight) {
+                        $maxHeight[i] = $(this).height();
+                    }
+                });
+
+                $(this).css('min-height', $maxHeight.max());
             });
 
         }, 100);
@@ -197,12 +221,12 @@
         ].join(",")).ripples();
 
         // Handle hash anchors
-        $('.scroll-link').on('click', function(e){
+        $('.nav-link').on('click', function(e){
             e.preventDefault();
             var target = $($(this).attr('href'));
 
             if(target.length){
-                var offset = Math.round(target.offset().top - $('.navbar-fixed-top').outerHeight() - $('#wpadminbar').outerHeight());
+                var offset = Math.round(target.offset().top - $('.navbar-fixed-top').outerHeight() - $('.navbar-sticky-top').outerHeight() - $('#wpadminbar').outerHeight());
                 $('html,body').animate({ scrollTop: offset }, 1000, 'easeInOutCubic');
             }
         });

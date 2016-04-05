@@ -1,7 +1,7 @@
 $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>path{fill:white;}</style><path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275 c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"/></svg>');
 
 .section {
-    @include padding-box($grid-gutter-width*2);
+    @include padding-box();
 }
 
 .section-title {
@@ -71,7 +71,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     li {
         background-color: #fff;
         border: 2px solid $gray-light;
-        @include border-radius($border-radius-lg);
+        @include border-radius($spacer);
         @include padding-box($spacer, $grid-gutter-width/2);
         display: flex;
         flex-wrap: wrap;
@@ -155,7 +155,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         font-size: $font-size-base*1.1875;
 
         p{
-            strong:first-child {
+            &:first-child {
                  font-size: $font-size-base*1.5;
             }
         }
@@ -321,7 +321,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
 }
 
-.testimonials-wrapper {
+.testimonial-wrapper {
 
     @include media (">=md") {
         padding-left: $grid-gutter-width*3;
@@ -411,41 +411,26 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
 .text-wrapper {
     font-size: $font-size-base*1.125;
-
-    p {
-        strong:first-child {
-            font-size: $font-size-base*1.3125;
-        }
-    }
 }
 
 .ordering-wrapper {
-    @include list-unstyled();
-    margin-bottom: 0;
-    padding-top: $spacer;
-    padding-bottom: $spacer;
     font-family: $font-family-serif;
     list-style-position: inside;
+    @include list-unstyled();
     counter-reset: item;
-    font-size: $font-size-base*1.125;
 
     li {
         background-color: #fff;
         border: 2px solid $gray-light;
         padding: $spacer $grid-gutter-width/2 $spacer $grid-gutter-width*1.5;
-        position: relative;
-        @include border-radius($border-radius);
+        @include border-radius($border-radius-lg);
+
+        @inclue media (">=md") {
+            padding: $spacer $grid-gutter-width*1.5 $spacer $grid-gutter-width*2;
+        }
 
         &:not(:last-child) {
             margin-bottom: $spacer/2;
-        }
-
-        @include media (">=md") {
-            padding: $spacer $grid-gutter-width $spacer $grid-gutter-width*3;
-
-            &:not(:last-child) {
-                margin-bottom: $spacer;
-            }
         }
 
         &:before {
@@ -455,105 +440,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             float: left;
             width: $grid-gutter-width;
             margin-left: -$grid-gutter-width;
-            margin-top: $spacer/4;
-
-            @include media (">=md") {
-                margin-left: -$grid-gutter-width*2;
-                font-size: $font-size-base*1.6;
-            }
-        }
-
-        @include media (">=md") {
-            .icon {
-                content: "";
-                display: block;
-                position: absolute;
-                width: auto;
-                height: auto;
-                max-width: 70px;
-                max-height: 85px;
-                fill: $brand-primary;
-            }
-
-            &:nth-child(7n+1) {
-                margin-left: $grid-gutter-width*1.5;
-                margin-right: $grid-gutter-width*1.6;
-
-                .icon {
-                    right: 100%;
-                    top: 70%;
-                    transform: translate3d(18px,0,0);
-                }
-            }
-
-            &:nth-child(7n+2) {
-                margin-left: $grid-gutter-width*2.93;
-                margin-right: $grid-gutter-width*5;
-
-                .icon {
-                    left: 100%;
-                    top: 25%;
-                    transform: translate3d(2px,0,0);
-                }
-            }
-
-            &:nth-child(7n+3) {
-                margin-left: $grid-gutter-width*1.66;
-                margin-right: $grid-gutter-width*1.33;
-
-                .icon {
-                    right: 100%;
-                    top: 40%;
-                    transform: translate3d(11px,0,0);
-                }
-            }
-
-            &:nth-child(7n+4) {
-
-                .icon {
-                    right: 0;
-                    top: 100%;
-                    transform: translate3d(-3px,-5px,0);
-                }
-            }
-
-            &:nth-child(7n+5) {
-                margin-left: $grid-gutter-width*1.5;
-                margin-right: $grid-gutter-width*2.76;
-
-                .icon {
-                    right: 100%;
-                    top: 75%;
-                    transform: translate3d(39px,0,0);
-                }
-            }
-
-            &:nth-child(7n+6) {
-                margin-left: $grid-gutter-width*3.1;
-                margin-right: $grid-gutter-width*1.66;
-
-                .icon {
-                    left: 100%;
-                    top: 35%;
-                    transform: translate3d(-3px,0,0);
-                }
-            }
-
-            &:nth-child(7n+7) {
-                margin-left: $grid-gutter-width*2.1;
-
-                .icon {
-                    right: 0;
-                    top: 100%;
-                    transform: translate3d(7px,0,0);
-                }
-            }
-
-            &:last-child {
-                .icon {
-                    display: none;
-                }
-            }
+            margin-top: $spacer/2;
         }
     }
 
@@ -563,88 +450,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     }
 
     .title{
-        font-size: $font-size-base*1.3125;
-        font-weight: 700;
-        margin-bottom: $spacer/1.5;
 
-        @include media (">=md") {
-             margin-top: $spacer/4;
-        }
-    }
-}
-
-.contact-wrapper {
-    font-size: $font-size-base*1.1875;
-    @include make-row(0);
-    justify-content: space-between;
-
-    .column {
-        @include make-col(0);
-        @include make-col-span(12);
-
-        @include media (">=md") {
-            &:nth-child(1) {
-                @include make-col-span(4);
-            }
-            &:nth-child(2) {
-                @include make-col-span(5);
-            }
-        }
-    }
-
-    a {
-        color: inherit;
-
-        @include hover-focus {
-            color: $brand-primary;
-            text-decoration: none;
-        }
-    }
-
-    .logo {
-        @extend .hidden-sm-down;
-        margin-bottom: $spacer*2;
-
-        img {
-             max-width: 100%;
-        }
-    }
-
-    .contacts {
-         @include list-unstyled();
-
-         li {
-             &:not(:last-child) {
-                 margin-bottom: $spacer;
-             }
-         }
-
-         .icon {
-              fill: $brand-primary;
-              margin-right: $spacer/2;
-         }
-    }
-
-    .socials {
-         @include list-unstyled();
-         display: flex;
-         flex-wrap: wrap;
-         justify-content: space-between;
-
-         li {
-             @include make-col(0);
-         }
-
-         .icon {
-             width: auto;
-             height: auto;
-             max-width: 45px;
-             max-height: 40px;
-             fill: $gray;
-         }
-    }
-
-    .gform_title {
-         text-align: center;
     }
 }

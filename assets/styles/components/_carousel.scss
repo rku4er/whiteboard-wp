@@ -1,9 +1,12 @@
 .carousel {
+    .carousel-item {
+        transition-timing-function: ease-out;
+    }
+
     &.carousel-fade {
         .carousel-item {
             opacity: 0;
             transition-property: opacity;
-            transition-timing-function: ease-out;
 
             &.active {
                 opacity: 1;
@@ -17,6 +20,26 @@
         .next.left,
         .prev.right {
             opacity: 1;
+        }
+    }
+
+    &.slide {
+        .carousel-item {
+            display: block;
+            position: absolute;
+            visibility: hidden;
+
+            &.active {
+                visibility: visible;
+                position: relative;
+            }
+
+            &.prev,
+            &.next {
+                visibility: visible;
+                position: absolute;
+            }
+
         }
     }
 }

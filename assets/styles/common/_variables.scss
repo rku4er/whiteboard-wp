@@ -175,10 +175,10 @@ $display4-weight:            300;
 $line-height:                1.2;
 
 $headings-margin-bottom:     1em;
-$headings-font-family:       $font-family-serif;
+$headings-font-family:       inherit;
 $headings-font-weight:       400;
 $headings-line-height:       1.1;
-$headings-color:             $gray-dark;
+$headings-color:             inherit;
 
 $lead-font-size:             1.25rem;
 $lead-font-weight:           400;
@@ -210,9 +210,9 @@ $list-inline-padding:         5px;
 $line-height-lg:         (4 / 3);
 $line-height-sm:         1.5;
 
-$border-radius:          .25rem;
-$border-radius-lg:       .3rem;
-$border-radius-sm:       .2rem;
+$border-radius:          .3125rem;
+$border-radius-lg:       .5rem;
+$border-radius-sm:       .0125rem;
 
 $component-active-color: #fff;
 $component-active-bg:    $brand-primary;

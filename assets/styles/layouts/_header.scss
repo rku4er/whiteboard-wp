@@ -1,11 +1,17 @@
 .navbar{
     background-color: #fff;
     padding: 0;
+    @include box-shadow(0px 5px 5px transparentize($gray-light, 0.4));
 
     .row {
         align-items: center;
         padding-top: $spacer/2;
         padding-bottom: $spacer/2;
+
+        @include media (">=lg") {
+            padding-top: $spacer;
+            padding-bottom: $spacer;
+        }
 
         .col-primary,
         .col-secondary {
@@ -51,6 +57,7 @@
         float: none;
         padding: 0;
         margin-right: 0;
+        margin-bottom: 0;
 
         img {
              max-height: 50px;
@@ -61,14 +68,40 @@
         display: inline-block;
         vertical-align: middle;
         white-space: nowrap;
+        color: $body-color;
+        font-weight: 600;
+        font-size: $font-size-base*1.0625;
+
+        @include media (">=md") {
+            font-size: $font-size-base*1.1875;
+        }
+
+        .icon {
+            fill: $gray;
+            margin-right: $spacer/4;
+            @include transition(color .2s ease-out);
+        }
+
+        @include hover-focus {
+             color: $brand-primary;
+             text-decoration: none;
+
+             .icon {
+                 fill: $brand-primary;
+             }
+        }
     }
 
     .navbar-btn {
         @extend .btn;
         @extend .btn-primary;
-        @extend .btn-lg;
         @extend .hidden-sm-down;
         margin-left: $grid-gutter-width/2;
+        padding: $spacer*3/4 $spacer/2;
+
+        @include media (">=lg") {
+            margin-left: $grid-gutter-width;
+        }
     }
 
     .navbar-toggler {
@@ -82,7 +115,7 @@
 
         .icon-menu,
         .icon-close {
-            @include transition(opacity .3s ease-in-out, transform .3s ease-in-out);
+            @include transition(opacity .3s ease-out, transform .3s ease-out);
             display: block;
             font-size: 0;
             width: $spacer*2;
@@ -94,10 +127,10 @@
                 content: "";
                 display: block;
                 position: absolute;
-                height: 3px;
+                height: 5px;
                 left: 0;
                 width: 100%;
-                background-color: $brand-primary;
+                background-color: $gray;
             }
         }
 
@@ -107,7 +140,7 @@
             opacity: 0;
             position: absolute;
 
-            border-bottom: 3px solid $brand-primary;
+            border-bottom: 5px solid $gray;
 
             &:after {
                  top: 50%;
@@ -121,7 +154,7 @@
 
             &:before,
             &:after {
-                top: 50%;
+                top: 40%;
                 transform-origin: 50% 50%;
             }
 
@@ -131,6 +164,20 @@
 
             &:before {
                 transform: rotate(-45deg);
+            }
+        }
+
+        @include hover-focus {
+            .icon-menu,
+            .icon-close {
+                &:before,
+                &:after {
+                    background-color: $brand-primary;
+                }
+            }
+
+            .icon-menu {
+                 border-bottom-color: $brand-primary;
             }
         }
 
