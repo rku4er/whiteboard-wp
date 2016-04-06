@@ -97,7 +97,6 @@
         @extend .btn-primary;
         @extend .hidden-sm-down;
         margin-left: $grid-gutter-width/2;
-        padding: $spacer*3/4 $spacer/2;
 
         @include media (">=lg") {
             margin-left: $grid-gutter-width;

@@ -182,8 +182,8 @@ $headings-color:             inherit;
 
 $lead-font-size:             1.25rem;
 $lead-font-weight:           400;
-$lead-color:                 $gray-dark;
-$lead-font-family:           $font-family-serif;
+$lead-color:                 inherit;
+$lead-font-family:           $font-family-base;
 
 $text-muted:                  $gray-light;
 
@@ -241,8 +241,8 @@ $table-border-color:            $gray-lighter;
 //
 // For each of Bootstrap's buttons, define text, background and border color.
 
-$btn-padding-x:                  1rem;
-$btn-padding-y:                  .375rem;
+$btn-padding-x:                  .6rem;
+$btn-padding-y:                  .8rem;
 $btn-font-weight:                normal;
 
 $btn-primary-color:              #fff;
@@ -274,19 +274,19 @@ $btn-link-disabled-color:        $gray-light;
 $btn-padding-x-sm:               .75rem;
 $btn-padding-y-sm:               .25rem;
 
-$btn-padding-x-lg:               1.25rem;
-$btn-padding-y-lg:               .75rem;
+$btn-padding-x-lg:               .75rem;
+$btn-padding-y-lg:               .8rem;
 
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius:              $border-radius;
-$btn-border-radius-lg:           $border-radius-lg;
+$btn-border-radius-lg:           $border-radius;
 $btn-border-radius-sm:           $border-radius-sm;
 
 
 // Forms
 
 $input-padding-x:                1rem;
-$input-padding-y:                .5rem;
+$input-padding-y:                .7rem;
 
 $input-bg:                       #fff;
 $input-bg-disabled:              $gray-lighter;

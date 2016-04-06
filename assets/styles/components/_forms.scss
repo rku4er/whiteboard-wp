@@ -15,6 +15,7 @@
 .ginput_container select,
 .ginput_container textarea {
     @extend .form-control;
+    font-size: $font-size-base*1.125;
 }
 .ginput_container textarea {
     height: auto;

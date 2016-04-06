@@ -167,7 +167,8 @@
 
        // Video lightbox
         $('.video-lightbox').magnificPopup({
-            type: 'iframe'
+            type: 'iframe',
+            mainClass: 'mfp-with-zoom'
         });
 
         // Image gallery lightbox
@@ -204,7 +205,7 @@
                 },
                 mainClass: 'mfp-with-zoom',
                 zoom: {
-                  enabled: false,
+                  enabled: true,
                   duration: 300,
                   easing: 'ease-in-out',
                 }

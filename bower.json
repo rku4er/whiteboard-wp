@@ -26,6 +26,42 @@
         "./dist/jquery.jcarousel-core.js",
         "./dist/jquery.jcarousel-control.js"
       ]
+    },
+    "bootstrap" : {
+      "main" : [
+        "./scss/_mixins.scss",
+        "./scss/_normalize.scss",
+        "./scss/_print.scss",
+        "./scss/_reboot.scss",
+        "./scss/_type.scss",
+        "./scss/_images.scss",
+        "./scss/_code.scss",
+        "./scss/_grid.scss",
+        "./scss/_tables.scss",
+        "./scss/_forms.scss",
+        "./scss/_buttons.scss",
+        "./scss/_animation.scss",
+        "./scss/_dropdown.scss",
+        "./scss/_input-group.scss",
+        "./scss/_nav.scss",
+        "./scss/_navbar.scss",
+        "./scss/_labels.scss",
+        "./scss/_alert.scss",
+        "./scss/_list-group.scss",
+        "./scss/_close.scss",
+        "./scss/_carousel.scss",
+        "./scss/_utilities.scss",
+        "./scss/_utilities-background.scss",
+        "./scss/_utilities-spacing.scss",
+        "./scss/_utilities-responsive.scss",
+        "./js/dist/util.js",
+        "./js/dist/alert.js",
+        "./js/dist/button.js",
+        "./js/dist/carousel.js",
+        "./js/dist/collapse.js",
+        "./js/dist/dropdown.js",
+        "./js/dist/scrollspy.js"
+      ]
     }
   }
 }
