@@ -705,3 +705,115 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
          font-weight: 700;
     }
 }
+
+.blog-wrapper {
+    .article-list {
+        @include list-unstyled();
+        @include make-row();
+        align-content: flex-start;
+
+        li {
+            padding: $grid-gutter-width;
+            @include make-col();
+            @include make-col-span(12);
+
+            @include media (">=md") {
+                @include make-col-span(6);
+            }
+
+            @include media (">=xl") {
+                @include make-col-span(4);
+            }
+
+            @include transition(opacity .2s ease-out);
+        }
+    }
+
+    .wp-post-image {
+        margin-bottom: $spacer*1.5;
+        width: 100%;
+        border: 1px solid $gray-light;
+    }
+
+    .title {
+        font-size: $font-size-base*1.3125;
+        font-weight: 600;
+        margin-bottom: .5em;
+    }
+
+    .excerpt {
+        font-size: $font-size-base*1.0625;
+        line-height: 1.65;
+
+        .more {
+            font-weight: 700;
+        }
+    }
+}
+
+.load-p-control {
+    text-align: center;
+
+    button {
+        background-color: transparent;
+        border: 0 none;
+        text-transform: uppercase;
+        color: $gray;
+        font-size: $font-size-base*1.1875;
+        @include transition(color .2s ease-out);
+
+        @include hover-focus {
+             color: $brand-primary;
+        }
+
+        &.loading {
+            .spinner {
+                display: block;
+            }
+        }
+
+        .spinner {
+          margin: 0 auto;
+          width: 70px;
+          text-align: center;
+          display: none;
+        }
+
+        .spinner > div {
+          width: 18px;
+          height: 18px;
+          background-color: $brand-primary;
+          overflow: hidden;
+
+          border-radius: 100%;
+          display: inline-block;
+          -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+          animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        }
+
+        .spinner .bounce1 {
+          -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+        }
+
+        .spinner .bounce2 {
+          -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+        }
+
+        @-webkit-keyframes sk-bouncedelay {
+          0%, 80%, 100% { -webkit-transform: scale(0) }
+          40% { -webkit-transform: scale(1.0) }
+        }
+
+        @keyframes sk-bouncedelay {
+          0%, 80%, 100% { 
+            -webkit-transform: scale(0);
+            transform: scale(0);
+          } 40% { 
+            -webkit-transform: scale(1.0);
+            transform: scale(1.0);
+          }
+        }
+    }
+}

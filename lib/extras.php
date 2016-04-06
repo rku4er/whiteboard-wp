@@ -3,6 +3,7 @@
 namespace Roots\Sage\Extras;
 
 use Roots\Sage\Utils;
+use Roots\Sage\ACFmodules;
 
 
 /**
@@ -39,7 +40,7 @@ add_filter( 'excerpt_length', __NAMESPACE__ . '\\sage_excerpt_length', 999 );
 add_filter('excerpt_more', __NAMESPACE__ . '\\sage_excerpt_more');
 
 function sage_excerpt_more() {
-  return '&hellip; <a class="more" href="' . get_permalink() . '">' . __('Read More', 'sage') . '</a>';
+  return '&hellip; <a class="more" href="' . get_permalink() . '">' . __('Les mer', 'sage') . '</a>';
 }
 
 
@@ -264,4 +265,51 @@ function prev_posts_link_attributes() {
 
 function next_posts_link_attributes() {
     return 'class="next-posts-link"';
+}
+
+
+/**
+ * AJAX Blog posts
+ */
+
+add_action('wp_ajax_nopriv_get_posts', __NAMESPACE__ . '\\sage_get_posts');
+add_action('wp_ajax_get_posts', __NAMESPACE__ . '\\sage_get_posts');
+
+function sage_get_posts(){
+    $output = array();
+    $postcount = wp_count_posts('post');
+    $width = (isset($_POST['width'])) ? $_POST['width'] : '0';
+    $offset = (isset($_POST['offset'])) ? $_POST['offset'] : '0';
+
+    if ($width >= 1200) $numberposts = '3';
+    elseif ($width >= 768) $numberposts = '2';
+    else $numberposts = '1';
+
+    $status = ($numberposts + $offset >= $postcount->publish) ? 'full' : '';
+
+    $args = array(
+        'numberposts' => $numberposts,
+        'offset'      => $offset
+    );
+
+
+    $field = 'content_rows';
+    $frontpage_id = get_option('page_on_front');
+
+    if (Utils\sage_get_field( $field, $frontpage_id )) {
+
+        while ( have_rows($field, $frontpage_id) ) : $row = the_row();
+
+            if($row['acf_fc_layout'] === 'blog') {
+                $output['content'] = ACFmodules\sage_get_row_content(get_row($row), $args);
+                $output['status'] = $status;
+            }
+
+        endwhile;
+
+    }
+
+    echo json_encode($output);
+
+    wp_die();
 }

@@ -126,9 +126,6 @@
         // Disable 300ms click delay on mobile
         FastClick.attach(document.body);
 
-        // Bootstrap tooltips
-        $('[data-toggle="tooltip"]').tooltip();
-
         // Responsive video
         $('.main').fitVids();
 
@@ -232,10 +229,69 @@
             }
         });
 
+        // Intro Video
         $('.video-wrapper a').click(function(e){
             $video = '<iframe src="'+ $(this).attr('href') +'&autoplay=1" AllowFullscreen="true"></iframe>';
             $(this).replaceWith($video);
             e.preventDefault();
+        });
+
+        // Blog
+        $('.section.blog').each(function(){
+
+            var $list   = $(this).find('.article-list'),
+                $button = $(this).find('button'),
+                $data   = {
+                    'action' : 'get_posts',
+                    'width'  : $(window).width(),
+                    'offset' : $list.children().length
+                },
+                get_posts = function(data) {
+                    jQuery.ajax({
+                        type: "POST",
+                        url: resolution.ajax_url,
+                        dataType: "json",
+                        data: data,
+                        success: function(response) {
+                            $resp = $(response.content);
+                            $resp.css({
+                                'visibility' : 'hidden',
+                                'opacity'    : '0',
+                                'position'   : 'absolute',
+                                'left'       : 0
+                            });
+                            $list_H = $list.height();
+                            $list.css('height', $list_H);
+                            $list.append($resp);
+                            $height = $resp.height() + $list_H;
+                            $button.removeClass('loading');
+                            $list.animate({'height' : $height}, 600, 'easeInOutQuad', function(){
+                                $resp.css({
+                                    'visibility' : 'visible',
+                                    'opacity'    : '1',
+                                    'position'   : 'static'
+                                });
+                            });
+
+                            if(response.status === 'full') {
+                                $button.hide();
+                            }
+
+                        },
+                        error: function(response){
+                            console.log(response);
+                        }
+                    });
+                };
+
+            get_posts($data);
+
+            $button.click(function(){
+                $(this).addClass('loading');
+                $data.offset = $list.children().length;
+                get_posts($data);
+            });
+
         });
 
       },

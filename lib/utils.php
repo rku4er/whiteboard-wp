@@ -8,11 +8,18 @@ use Roots\Sage\ACFmodules;
 /**
  * Custom Excerpt
  */
-function excerpt($limit=40) {
-  $content = explode(' ', get_the_content(), $limit);
+function excerpt($id=false, $limit=30) {
+  if ( isset( $post->ID ) && !$id ) $id = $post->ID;
+
+  $content = explode(' ', get_post_field('post_content', $id), $limit);
+
   if (count($content)>=$limit) {
     array_pop($content);
-    $content = implode(" ",$content).'&hellip; <a class="more" href="' . get_permalink() . '">' . __('Read More', 'sage') . '</a>';
+    $content = implode(" ",$content);
+    $content .= sprintf('&hellip; <a class="more" href="%s">%s</a>',
+        get_the_permalink($id),
+        __('Les mer', 'sage')
+    );
   } else {
     $content = implode(" ",$content);
   }

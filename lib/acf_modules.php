@@ -200,7 +200,7 @@ function sage_copyright() {
  * Flexible Layout content
  */
 
-function sage_get_row_content ( $row ) {
+function sage_get_row_content ( $row, $args ) {
 
     $output        = '';
     $layout        = $row['acf_fc_layout'];
@@ -216,11 +216,7 @@ function sage_get_row_content ( $row ) {
     $bg_repeat     = $row['background_repeat'];
     $bg_position   = $row['background_position_x'] .' '. $row['background_position_y'];
     $bg_attachment = $row['background_attachment'];
-    $section_style         = '';
-
-    if ($section_title && $layout !== 'price' ) $output .= <<<EOT
-        <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
-EOT;
+    $section_style = '';
 
     if ($bg_color) $section_style .= sprintf('background-color: %s; ', $bg_color);
     if ($bg_image) {
@@ -476,17 +472,79 @@ EOT;
         </div>
 EOT;
 
-   }
+   } elseif ($layout === 'blog') {
+
+       $load_p_mesg = __('Eldre Innlegg', 'sage');
+
+       if($args['numberposts']) {
+
+           $posts = get_posts(array(
+               'post_type'   => 'post',
+               'numberposts' => $args['numberposts'],
+               'offset'      => $args['offset'],
+               'post_status' => 'publish'
+           ));
+
+           if ($posts) {
+                foreach ($posts as $post) {
+                    $thumb       = get_the_post_thumbnail($post->ID, 'medium');
+                    $title       = Titles\title($post->ID);
+                    $excerpt     = Utils\excerpt($post->ID);
+
+                    $output .= <<<EOT
+
+                    <li>
+                        <article>{$thumb}
+                            <h3 class="title">{$title}</h3>
+                            <div class="excerpt">{$excerpt}</div>
+                        </article>
+                    </li>
+EOT;
+                }
+            }
+       } else {
+            $output .= <<<EOT
+
+            <div class="{$layout}-wrapper">
+                <ul class="article-list"></ul>
+                <p class="load-p-control">
+                    <button type="button">
+                        <div class="spinner">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                        </div>
+                        {$load_p_mesg}
+                    </button>
+                </p>
+            </div>
+EOT;
+       }
+
+    }
 
 
 
     $content_style = $content_color ? sprintf('style="color: %s"', $content_color) : '';
 
-    return <<<EOT
-        <div id="{$section_id}" class="section {$layout}" style="{$section_style}">
-            <div class="container" {$content_style}>{$output}</div>
-        </div>
+    if ($section_title && $layout !== 'price' ) $section_title_html .= <<<EOT
+        <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
 EOT;
 
+    if ($args['numberposts']) {
+        return $output;
+    } else {
+
+        return <<<EOT
+            <div id="{$section_id}" class="section {$layout}" style="{$section_style}">
+                <div class="container" {$content_style}>
+                    {$section_title_html}
+                    {$output}
+                </div>
+            </div>
+EOT;
+    }
+
 }
+
 
