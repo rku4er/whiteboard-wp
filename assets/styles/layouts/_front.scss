@@ -1,7 +1,35 @@
 $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>path{fill:white;}</style><path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275 c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"/></svg>');
 
 .section {
-    @include padding-box($grid-gutter-width*2, 0);
+    @include padding-box($grid-gutter-width*1.5, 0);
+    position: relative;
+
+    .nav-link {
+      width: 73px;
+      height: 73px;
+      @include border-radius(50%);
+      @include box-shadow(0 4px 0 rgba(0,0,0,.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      z-index: 1;
+
+      transform: translate3d(-50%,-70%,0);
+
+      .icon {
+        opacity: .5;
+      }
+    }
+
+    &:last-child {
+      .nav-link {
+        display: none;
+      }
+    }
 }
 
 .section-title {

@@ -220,13 +220,15 @@
 
         // Handle hash anchors
         $('.nav-link').on('click', function(e){
-            e.preventDefault();
             var target = $($(this).attr('href'));
 
             if(target.length){
                 var offset = Math.round(target.offset().top - $('.navbar-fixed-top').outerHeight() - $('.navbar-sticky-top').outerHeight() - $('#wpadminbar').outerHeight());
                 $('html,body').animate({ scrollTop: offset }, 1000, 'easeInOutCubic');
             }
+
+            e.preventDefault();
+
         });
 
         // Intro Video

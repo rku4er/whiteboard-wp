@@ -1,5 +1,7 @@
 <div style="height: 0; width: 0; position: absolute; visibility: hidden">
-  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol id="facebook" viewBox="0 0 48.908 48.908">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol id="down" viewBox="0 0 306 188.7">
+   <polygon points="306,94.351 153,247.35 0,94.351 35.7,58.65 153,175.951 270.3,58.65 " transform="translate(0,-58.65)"/>
+ </symbol><symbol id="facebook" viewBox="0 0 48.908 48.908">
     <path d="M37.294,1.492c0.294-0.315,0.293-0.88-0.243-0.973c-5.175-0.893-11.147-1.009-15.28,2.77
         c-3.843,3.513-4.025,9.333-3.166,14.149c-0.021-0.005-0.039-0.016-0.061-0.018c-2.216-0.228-4.63,0.018-6.832,0.313
         c-0.337,0.045-0.427,0.409-0.246,0.596c-0.004,0.016-0.018,0.025-0.019,0.042c-0.196,2.521-0.012,5.287,0.313,7.805

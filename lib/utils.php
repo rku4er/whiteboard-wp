@@ -170,23 +170,31 @@ function sage_get_the_excerpt($post_id) {
 /**
  * Creates flexible content instanse
  * @param mixed $name Flexible content name
- * @return 'void'
+ * @return 'string'
  * @uses sage_init_flexible_content( $name )
  */
 
 function sage_flexible_content() {
 
     $output = '';
-    $field = 'content_rows';
+    $field_name = 'content_rows';
+    $field_data = sage_get_field( $field_name );
 
     // check if the flexible content field exists
-    if( sage_get_field( $field ) ){
+    if( $field_data ){
 
         // loop through the rows of data
-        while ( have_rows($field) ) : $row = the_row();
+        while ( have_rows($field_name) ) : $row = the_row();
+
+            // setup data to pass
+            $row_data                    = get_row($row);
+
+            // pass next sibling id
+            $next_sibling                = $field_data[++$i];
+            $row_data['next_sibling_id'] = $next_sibling['section_id'];
 
             // collect layout content
-            $output .= ACFmodules\sage_get_row_content(get_row($row));
+            $output .= ACFmodules\sage_get_row_content($row_data);
 
         endwhile;
 
@@ -202,4 +210,100 @@ function sage_flexible_content() {
 }
 
 
+/**
+ * Adjust brightness
+ * @param string $hex Hex formatted color
+ * @param number $steps Hex formatted color
+ * @return 'string'
+ * @uses sage_adjust_brightness( '#9d9d9d', 100 );
+ */
 
+function sage_adjust_brightness($hex, $steps) {
+    // Steps should be between -255 and 255. Negative = darker, positive = lighter
+    $steps = max(-255, min(255, $steps));
+
+    // Normalize into a six character long hex string
+    $hex = str_replace('#', '', $hex);
+    if (strlen($hex) == 3) {
+        $hex = str_repeat(substr($hex,0,1), 2).str_repeat(substr($hex,1,1), 2).str_repeat(substr($hex,2,1), 2);
+    }
+
+    // Split into three parts: R, G and B
+    $color_parts = str_split($hex, 2);
+    $return = '#';
+
+    foreach ($color_parts as $color) {
+        $color   = hexdec($color); // Convert to decimal
+        $color   = max(0,min(255,$color + $steps)); // Adjust color
+        $return .= str_pad(dechex($color), 2, '0', STR_PAD_LEFT); // Make two char hex code
+    }
+
+    return $return;
+}
+
+
+/**
+ * Get rgb color value
+ * @param string $rgb Hex formatted color
+ * @return 'string'
+ * @uses sage_get_color( '#b2b2b2' )
+ */
+
+function sage_get_color($hex) {
+    // these are not the actual rgb values
+    $colors = array(WHITE => '#FFFFFF', BRAND => '#E5921B', BLACK => '#000000');
+
+    $deviation = PHP_INT_MAX;
+    $closestColor = "";
+    foreach ($colors as $name => $rgbColor) {
+      $diff = sage_color_diff($rgbColor, $hex);
+        if ( $diff < $deviation) {
+            $deviation = $diff;
+            $closestColor = $name;
+        }
+
+    }
+    return $closestColor;
+
+}
+
+
+/**
+ * Get two hex colors diff
+ * @param string $hex1 Hex formatted color
+ * @param string $hex2 Hex formatted color
+ * @return 'number'
+ * @uses sage_color_diff( '#9d9d9d', '#a3a3a3' )
+ */
+
+function sage_color_diff($hex1, $hex2) {
+    $rgb1 = sage_hex2rgb($hex1);
+    $rgb2 = sage_hex2rgb($hex2);
+
+    return abs($rgb1[0] - $rgb2[0]) + abs($rgb1[1] - $rgb2[1]) + abs($rgb1[2] - $rgb2[2]) ;
+}
+
+
+/**
+ * Convert hex to rgb color
+ * @param string $hex Hex formatted color
+ * @return 'array'
+ * @uses sage_hex2rgb( '#9d9d9d' )
+ */
+
+function sage_hex2rgb($hex) {
+   $hex = str_replace("#", "", $hex);
+
+   if(strlen($hex) == 3) {
+      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+   } else {
+      $r = hexdec(substr($hex,0,2));
+      $g = hexdec(substr($hex,2,2));
+      $b = hexdec(substr($hex,4,2));
+   }
+   $rgb = array($r, $g, $b);
+   //return implode(",", $rgb); // returns the rgb values separated by commas
+   return $rgb; // returns an array with the rgb values
+}
