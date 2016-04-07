@@ -31,8 +31,9 @@
     }
     .validation_message {
         color: $state-danger-text;
+        margin-top: .2em;
     }
-    input,
+    input:not([type="radio"]):not([type="checkbox"]),
     select,
     textarea {
         border-color: $alert-danger-border;

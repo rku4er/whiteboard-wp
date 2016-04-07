@@ -243,13 +243,13 @@ function sage_adjust_brightness($hex, $steps) {
 
 
 /**
- * Get rgb color value
+ * Get closest color name
  * @param string $rgb Hex formatted color
  * @return 'string'
- * @uses sage_get_color( '#b2b2b2' )
+ * @uses sage_closest_color( '#b2b2b2' )
  */
 
-function sage_get_color($hex) {
+function sage_closest_color($hex) {
     // these are not the actual rgb values
     $colors = array(WHITE => '#FFFFFF', BRAND => '#E5921B', BLACK => '#000000');
 
@@ -306,4 +306,31 @@ function sage_hex2rgb($hex) {
    $rgb = array($r, $g, $b);
    //return implode(",", $rgb); // returns the rgb values separated by commas
    return $rgb; // returns an array with the rgb values
+}
+
+
+/**
+ * Get complementary color
+ * @param string $hex Hex formatted color
+ * @return 'string'
+ * @uses sage_complementary_color( '#9d9d9d' )
+ */
+
+function sage_complementary_color($hex) {
+  $output = '';
+  $color_name = sage_closest_color($hex);
+
+  if ($color_name === 'WHITE') {
+    $output = sage_adjust_brightness($hex, -50);
+
+  } elseif ($color_name === 'BLACK') {
+    $output = sage_adjust_brightness($hex, 100);
+
+  } elseif ($color_name === 'BRAND') {
+    $output = sage_adjust_brightness($hex, 50);
+
+  }
+
+  return $output;
+
 }

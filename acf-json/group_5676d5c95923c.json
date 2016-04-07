@@ -18,8 +18,7 @@
             "choices": {
                 "static-top": "Static top",
                 "fixed-top": "Fixed top",
-                "fixed-bottom": "Fixed bottom",
-                "sticky-top": "Sticky top"
+                "fixed-bottom": "Fixed bottom"
             },
             "default_value": [
                 "static-top"
@@ -230,5 +229,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1459508477
+    "modified": 1460031452
 }

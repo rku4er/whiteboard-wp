@@ -410,7 +410,56 @@ EOT;
            $output .= '</ol>';
        }
 
-   } elseif ($layout === 'contact') {
+   } elseif ($layout === 'blog') {
+
+       $load_p_mesg = __('Eldre Innlegg', 'sage');
+
+       if($args['numberposts']) {
+
+           $posts = get_posts(array(
+               'post_type'   => 'post',
+               'numberposts' => $args['numberposts'],
+               'offset'      => $args['offset'],
+               'post_status' => 'publish'
+           ));
+
+           if ($posts) {
+                foreach ($posts as $post) {
+                    $thumb       = get_the_post_thumbnail($post->ID, 'medium');
+                    $title       = Titles\title($post->ID);
+                    $excerpt     = Utils\excerpt($post->ID);
+
+                    $output .= <<<EOT
+
+                    <li>
+                        <article>{$thumb}
+                            <h3 class="title">{$title}</h3>
+                            <div class="excerpt">{$excerpt}</div>
+                        </article>
+                    </li>
+EOT;
+                }
+            }
+       } else {
+            $output .= <<<EOT
+
+            <div class="{$layout}-wrapper">
+                <ul class="article-list"></ul>
+                <p class="load-p-control">
+                    <button type="button">
+                        <div class="spinner">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                        </div>
+                        {$load_p_mesg}
+                    </button>
+                </p>
+            </div>
+EOT;
+       }
+
+    } elseif ($layout === 'contact') {
 
        $blogname = get_bloginfo('name');
        $phone_trim = preg_replace('/[^0-9]+/', '', $row['phone']);
@@ -420,7 +469,7 @@ EOT;
 
         <div class="{$layout}-wrapper">
             <div class="column">
-                <p class="logo"><img src="{$row['logo']}" alt="{$blogname}"/></p>
+                <a href="#document_top" class="nav-link logo"><img src="{$row['logo']}" alt="{$blogname}"/></a>
                 <ul class="contacts">
                     <li>
                         <span class="address">
@@ -473,56 +522,7 @@ EOT;
         </div>
 EOT;
 
-   } elseif ($layout === 'blog') {
-
-       $load_p_mesg = __('Eldre Innlegg', 'sage');
-
-       if($args['numberposts']) {
-
-           $posts = get_posts(array(
-               'post_type'   => 'post',
-               'numberposts' => $args['numberposts'],
-               'offset'      => $args['offset'],
-               'post_status' => 'publish'
-           ));
-
-           if ($posts) {
-                foreach ($posts as $post) {
-                    $thumb       = get_the_post_thumbnail($post->ID, 'medium');
-                    $title       = Titles\title($post->ID);
-                    $excerpt     = Utils\excerpt($post->ID);
-
-                    $output .= <<<EOT
-
-                    <li>
-                        <article>{$thumb}
-                            <h3 class="title">{$title}</h3>
-                            <div class="excerpt">{$excerpt}</div>
-                        </article>
-                    </li>
-EOT;
-                }
-            }
-       } else {
-            $output .= <<<EOT
-
-            <div class="{$layout}-wrapper">
-                <ul class="article-list"></ul>
-                <p class="load-p-control">
-                    <button type="button">
-                        <div class="spinner">
-                          <div class="bounce1"></div>
-                          <div class="bounce2"></div>
-                          <div class="bounce3"></div>
-                        </div>
-                        {$load_p_mesg}
-                    </button>
-                </p>
-            </div>
-EOT;
-       }
-
-    }
+   }
 
     if ($args['numberposts']) {
         return $output;
@@ -534,18 +534,7 @@ EOT;
           <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
 EOT;
 
-      $color_name = Utils\sage_get_color($bg_color);
-
-      if ($color_name === 'WHITE') {
-        $down_icon_color = Utils\sage_adjust_brightness($bg_color, -50);
-
-      } elseif ($color_name === 'BLACK') {
-        $down_icon_color = Utils\sage_adjust_brightness($bg_color, 100);
-
-      } elseif ($color_name === 'BRAND') {
-        $down_icon_color = Utils\sage_adjust_brightness($bg_color, 50);
-
-      }
+      $down_icon_color = Utils\sage_complementary_color($bg_color);
 
       return <<<EOT
           <div id="{$section_id}" class="section {$layout}" style="{$section_style}">
@@ -553,7 +542,7 @@ EOT;
                   {$section_title_html}
                   {$output}
               </div>
-              <a href="#{$scroll_target}" class="nav-link" style="color: {$down_icon_color}; background-color: {$bg_color}">
+              <a href="#{$scroll_target}" class="nav-link scroll-btn" style="color: {$down_icon_color}; background-color: {$bg_color}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="fill: {$down_icon_color}"><use xlink:href="#down"></use></svg>
               </a>
           </div>

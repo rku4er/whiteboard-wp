@@ -4,7 +4,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     @include padding-box($grid-gutter-width*1.5, 0);
     position: relative;
 
-    .nav-link {
+    .scroll-btn {
       width: 73px;
       height: 73px;
       @include border-radius(50%);
@@ -26,7 +26,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     }
 
     &:last-child {
-      .nav-link {
+      .scroll-btn {
         display: none;
       }
     }
@@ -652,6 +652,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
     .logo {
         @extend .hidden-sm-down;
+        display: block;
 
         img {
              max-width: 100%;
@@ -731,6 +732,10 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     .gform_button {
          min-width: 195px;
          font-weight: 700;
+    }
+
+    .validation_error {
+       display: none;
     }
 }
 
