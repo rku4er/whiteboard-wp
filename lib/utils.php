@@ -184,17 +184,18 @@ function sage_flexible_content() {
     if( $field_data ){
 
         // loop through the rows of data
+        $i = 0;
         while ( have_rows($field_name) ) : $row = the_row();
 
             // setup data to pass
             $row_data                    = get_row($row);
 
             // pass next sibling id
-            $next_sibling                = $field_data[++$i];
+            $next_sibling                = $field_data[$i++];
             $row_data['next_sibling_id'] = $next_sibling['section_id'];
 
             // collect layout content
-            $output .= ACFmodules\sage_get_row_content($row_data);
+            $output .= ACFmodules\sage_get_row_content($row_data, array());
 
         endwhile;
 
@@ -251,7 +252,7 @@ function sage_adjust_brightness($hex, $steps) {
 
 function sage_closest_color($hex) {
     // these are not the actual rgb values
-    $colors = array(WHITE => '#FFFFFF', BRAND => '#E5921B', BLACK => '#000000');
+    $colors = array('WHITE' => '#FFFFFF', 'BRAND' => '#E5921B', 'BLACK' => '#000000');
 
     $deviation = PHP_INT_MAX;
     $closestColor = "";

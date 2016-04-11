@@ -208,9 +208,10 @@ function sage_get_row_content ( $row, $args ) {
     $prefix        = $layout .'_';
     $section_id    = $row['section_id'] ? $row['section_id'] : uniqid($prefix);
     $section_title = $row['section_title'];
+    $numberposts   = array_key_exists('numberposts', $args) ? $args['numberposts'] : '';
 
     $title_color   = $row['title_color'];
-    $content_color = $row['content_color'];
+    $content_color = array_key_exists('content_color', $row) ? $row['content_color'] : '';
     $bg_color      = $row['background_color'];
     $bg_image      = $row['background_image'];
     $bg_size       = $row['background_size'];
@@ -414,11 +415,11 @@ EOT;
 
        $load_p_mesg = __('Eldre Innlegg', 'sage');
 
-       if($args['numberposts']) {
+       if($numberposts) {
 
            $posts = get_posts(array(
                'post_type'   => 'post',
-               'numberposts' => $args['numberposts'],
+               'numberposts' => $numberposts,
                'offset'      => $args['offset'],
                'post_status' => 'publish'
            ));
@@ -524,15 +525,13 @@ EOT;
 
    }
 
-    if ($args['numberposts']) {
-        return $output;
-    } else {
+   if ($numberposts) {
+      return $output;
+   } else {
 
       $content_style = $content_color ? sprintf('style="color: %s"', $content_color) : '';
 
-      if ($section_title && $layout !== 'price' ) $section_title_html .= <<<EOT
-          <h2 class="section-title" style="color: {$title_color}">{$section_title}</h2>
-EOT;
+      $section_title_html = ($section_title && $layout !== 'price' ) ? sprintf('<h2 class="section-title" style="color: %s">%s</h2>', $title_color, $section_title) : '';
 
       $down_icon_color = Utils\sage_complementary_color($bg_color);
 
