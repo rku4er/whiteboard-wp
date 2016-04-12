@@ -11,12 +11,12 @@ use Roots\Sage\Utils;
 add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
 function setup() {
   $options  = Utils\sage_get_options();
-  $gaID     = $options['google_analytics_id'];
+  $gaID     = array_key_exists('google_analytics_id', $options) ? $options['google_analytics_id'] : '';
 
   add_theme_support('soil-clean-up');         // Enable clean up from Soil
   add_theme_support('soil-relative-urls');    // Enable relative URLs from Soil
   add_theme_support('soil-nice-search');      // Enable nice search from Soil
-  if( $gaID ) add_theme_support('soil-google-analytics', $gaID); // Enable Google Analytics
+  add_theme_support('soil-google-analytics', $gaID); // Enable Google Analytics
   //add_theme_support('soil-jquery-cdn');     // Enable jQuery from the Google CDN
   //add_theme_support('soil-js-to-footer');   // Enable js to footer
   add_theme_support('soil-nav-walker');       // Enable clean nav walker

@@ -33,7 +33,7 @@ function load_script() {
 function options($option = null) {
   static $options;
   if (!isset($options)) {
-    $options = \Roots\Soil\Options::getByFile(__FILE__) + array('', 'wp_footer');
+    $options = \Roots\Soil\Options::getByFile(__FILE__) + ['', 'wp_footer'];
     $options['gaID'] = &$options[0];
     $options['hook'] = &$options[1];
   }

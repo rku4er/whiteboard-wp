@@ -24,13 +24,16 @@ function head_cleanup() {
   }, 3, 0);
   remove_action('wp_head', 'rsd_link');
   remove_action('wp_head', 'wlwmanifest_link');
-  remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+  remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
   remove_action('wp_head', 'wp_generator');
-  remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+  remove_action('wp_head', 'wp_shortlink_wp_head', 10);
   remove_action('wp_head', 'print_emoji_detection_script', 7);
   remove_action('admin_print_scripts', 'print_emoji_detection_script');
   remove_action('wp_print_styles', 'print_emoji_styles');
   remove_action('admin_print_styles', 'print_emoji_styles');
+  remove_action('wp_head', 'wp_oembed_add_discovery_links');
+  remove_action('wp_head', 'wp_oembed_add_host_js');
+  remove_action('wp_head', 'rest_output_link_wp_head', 10);
   remove_filter('the_content_feed', 'wp_staticize_emoji');
   remove_filter('comment_text_rss', 'wp_staticize_emoji');
   remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
@@ -39,7 +42,7 @@ function head_cleanup() {
   global $wp_widget_factory;
 
   if (isset($wp_widget_factory->widgets['WP_Widget_Recent_Comments'])) {
-    remove_action('wp_head', array($wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'));
+    remove_action('wp_head', [$wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style']);
   }
 
   if (!class_exists('WPSEO_Frontend')) {
@@ -75,7 +78,7 @@ add_filter('the_generator', '__return_false');
  * Remove dir="ltr"
  */
 function language_attributes() {
-  $attributes = array();
+  $attributes = [];
 
   if (is_rtl()) {
     $attributes[] = 'dir="rtl"';
@@ -130,10 +133,10 @@ function body_class($classes) {
 
   // Remove unnecessary classes
   $home_id_class = 'page-id-' . get_option('page_on_front');
-  $remove_classes = array(
+  $remove_classes = [
     'page-template-default',
     $home_id_class
-  );
+  ];
   $classes = array_diff($classes, $remove_classes);
 
   return $classes;
