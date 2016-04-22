@@ -124,7 +124,7 @@ function sage_assets() {
   wp_enqueue_script('modernizr', Assets\asset_path('scripts/modernizr.js'), array(), null, true);
   wp_enqueue_script('sage_js', Assets\asset_path('scripts/main.js'), array('jquery'), null, true);
 
-  wp_localize_script( 'sage_js', 'resolution', array(
+  wp_localize_script( 'sage_js', 'getposts', array(
       'ajax_url' => admin_url( 'admin-ajax.php' )
   ));
 

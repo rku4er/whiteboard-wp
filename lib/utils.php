@@ -196,7 +196,7 @@ function sage_flexible_content() {
             $row_data['next_sibling_id'] = array_key_exists('section_id', $next_sibling) ? $next_sibling['section_id'] : '-1';
 
             // collect layout content
-            $output .= ACFmodules\sage_get_row_content($row_data, array());
+            $output .= ACFmodules\sage_get_row_content($row_data);
 
         endwhile;
 

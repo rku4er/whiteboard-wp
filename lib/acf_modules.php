@@ -200,7 +200,7 @@ function sage_copyright() {
  * Flexible Layout content
  */
 
-function sage_get_row_content ( $row, $args ) {
+function sage_get_row_content ( $row, $args = array() ) {
 
     $output        = '';
     $layout        = $row['acf_fc_layout'];
@@ -426,14 +426,15 @@ EOT;
 
            if ($posts) {
                 foreach ($posts as $post) {
-                    $thumb       = get_the_post_thumbnail($post->ID, 'medium');
+                    $thumb       = get_the_post_thumbnail($post->ID, 'large');
                     $title       = Titles\title($post->ID);
                     $excerpt     = Utils\excerpt($post->ID);
 
                     $output .= <<<EOT
 
                     <li>
-                        <article>{$thumb}
+                        <article>
+                            <div class="thumb">{$thumb}</div>
                             <h3 class="title">{$title}</h3>
                             <div class="excerpt">{$excerpt}</div>
                         </article>

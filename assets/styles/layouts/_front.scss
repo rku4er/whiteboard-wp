@@ -744,9 +744,9 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         @include list-unstyled();
         @include make-row();
         align-content: flex-start;
+        position: relative;
 
         li {
-            padding: $grid-gutter-width;
             @include make-col();
             @include make-col-span(12);
 
@@ -759,13 +759,28 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             }
 
             @include transition(opacity .2s ease-out);
+
+          article {
+            padding: $grid-gutter-width 0;
+          }
         }
     }
 
+    .thumb {
+      position: relative;
+      padding-bottom: 60%;
+      height: 0;
+      margin-bottom: $spacer*1.5;
+      border: 1px solid $gray-light;
+    }
+
     .wp-post-image {
-        margin-bottom: $spacer*1.5;
-        width: 100%;
-        border: 1px solid $gray-light;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .title {
@@ -780,6 +795,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
         .more {
             font-weight: 700;
+            white-space: nowrap;
         }
     }
 }
@@ -793,6 +809,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         text-transform: uppercase;
         color: $gray;
         font-size: $font-size-base*1.1875;
+        position: relative;
         @include transition(color .2s ease-out);
 
         @include hover-focus {
@@ -807,18 +824,19 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
         .spinner {
           margin: 0 auto;
-          width: 70px;
-          text-align: center;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 100%;
           display: none;
         }
 
         .spinner > div {
-          width: 18px;
-          height: 18px;
+          width: $spacer;
+          height: $spacer;
           background-color: $brand-primary;
           overflow: hidden;
 
-          border-radius: 100%;
           display: inline-block;
           -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
           animation: sk-bouncedelay 1.4s infinite ease-in-out both;

@@ -110,6 +110,9 @@
                 $(this).css('min-height', $maxHeight.max());
             });
 
+            // reset article list height
+            $('.article-list').height('auto');
+
         }, 100);
 
 
@@ -233,9 +236,15 @@
 
         // Intro Video
         $('.video-wrapper a').click(function(e){
-            $video = '<iframe src="'+ $(this).attr('href') +'&autoplay=1" AllowFullscreen="true"></iframe>';
-            $(this).replaceWith($video);
-            e.preventDefault();
+
+          var $src = $(this).attr('href'),
+              $query_opened = $src.match(/^[^?]+\?/),
+              $separator = $query_opened ? '&' : '?',
+              $video = '<iframe src="'+ $src + $separator + 'autoplay=1" frameborder="0" allowfullscreen></iframe>';
+
+          $(this).replaceWith($video);
+
+          e.preventDefault();
         });
 
         // Blog
@@ -251,7 +260,7 @@
                 get_posts = function(data) {
                     jQuery.ajax({
                         type: "POST",
-                        url: resolution.ajax_url,
+                        url: getposts.ajax_url,
                         dataType: "json",
                         data: data,
                         success: function(response) {
@@ -268,11 +277,17 @@
                             $height = $resp.height() + $list_H;
                             $button.removeClass('loading');
                             $list.animate({'height' : $height}, 600, 'easeInOutQuad', function(){
-                                $resp.css({
+                              $resp.each(function(i){
+                                var $target = $(this),
+                                    $timeout = 100*i;
+                                setTimeout(function(){
+                                  $target.css({
                                     'visibility' : 'visible',
                                     'opacity'    : '1',
                                     'position'   : 'static'
-                                });
+                                  });
+                                }, $timeout);
+                              });
                             });
 
                             if(response.status === 'full') {
@@ -290,6 +305,7 @@
 
             $button.click(function(){
                 $(this).addClass('loading');
+                $('.article-list').height('auto');
                 $data.offset = $list.children().length;
                 get_posts($data);
             });

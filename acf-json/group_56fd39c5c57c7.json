@@ -1493,7 +1493,7 @@
                                     },
                                     "return_format": "array",
                                     "preview_size": "thumbnail",
-                                    "library": "uploadedTo",
+                                    "library": "all",
                                     "min_width": "",
                                     "min_height": "",
                                     "min_size": "",
@@ -3262,5 +3262,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1459958333
+    "modified": 1461322117
 }
