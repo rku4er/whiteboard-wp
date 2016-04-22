@@ -392,7 +392,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         width: 45px;
         height: 45px;
         margin-right: $spacer;
-        @include border-radius(50%);
 
         @include media (">=md") {
             width: 60px;
