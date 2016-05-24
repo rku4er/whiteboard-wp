@@ -185,20 +185,17 @@ function sage_flexible_content() {
 
         // loop through the rows of data
         $i = 0;
-        while ( have_rows($field_name) ) : $row = the_row();
-
-            // setup data to pass
-            $row_data                    = get_row($row);
+        foreach ( $field_data as $field ) :
 
             // pass next sibling id
-            $index                       = ++$i;
-            $next_sibling                = isset($field_data[$index]) ? $field_data[$index] : array();
-            $row_data['next_sibling_id'] = array_key_exists('section_id', $next_sibling) ? $next_sibling['section_id'] : '-1';
+            $index                    = ++$i;
+            $next_sibling             = isset($field_data[$index]) ? $field_data[$index] : array();
+            $field['next_sibling_id'] = array_key_exists('section_id', $next_sibling) ? $next_sibling['section_id'] : '-1';
 
             // collect layout content
-            $output .= ACFmodules\sage_get_row_content($row_data);
+            $output .= ACFmodules\sage_get_row_content($field);
 
-        endwhile;
+        endforeach;
 
 
     } else {

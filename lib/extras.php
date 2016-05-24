@@ -295,17 +295,18 @@ function sage_get_posts(){
 
     $field = 'content_rows';
     $frontpage_id = get_option('page_on_front');
+    $field_data = Utils\sage_get_field( $field, $frontpage_id );
 
-    if (Utils\sage_get_field( $field, $frontpage_id )) {
+    if ($field_data) {
 
-        while ( have_rows($field, $frontpage_id) ) : $row = the_row();
+        foreach ( $field_data as $field ) :
 
-            if($row['acf_fc_layout'] === 'blog') {
-                $output['content'] = ACFmodules\sage_get_row_content(get_row($row), $args);
+            if($field['acf_fc_layout'] === 'blog') {
+                $output['content'] = ACFmodules\sage_get_row_content($field, $args);
                 $output['status'] = $status;
             }
 
-        endwhile;
+        endforeach;
 
     }
 

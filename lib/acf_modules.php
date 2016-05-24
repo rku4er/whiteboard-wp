@@ -26,10 +26,10 @@ function sage_navbar_logo() {
 
     $output  = '';
     $options = Utils\sage_get_options();
-    $logo_sm = $options['navbar_logo_mobile'];
-    $logo_lg = $options['navbar_logo_desktop'];
+    $logo_sm_url = wp_get_attachment_url($options['navbar_logo_mobile']);
+    $logo_lg_url = wp_get_attachment_url($options['navbar_logo_desktop']);
 
-    if ($logo_sm || $logo_lg) {
+    if ($logo_sm_url || $logo_lg_url) {
 
         $blogname = get_bloginfo('name');
         $tag      = (is_front_page()) ? 'h1' : 'a';
@@ -39,10 +39,10 @@ function sage_navbar_logo() {
 
         <{$tag} class="navbar-brand" {$href}>
             <span class="hidden-sm-up">
-                <img src="{$logo_sm['url']}" alt="{$blogname}">
+                <img src="{$logo_sm_url}" alt="{$blogname}">
             </span>
             <span class="hidden-xs-down">
-                <img src="{$logo_lg['url']}" alt="{$blogname}">
+                <img src="{$logo_lg_url}" alt="{$blogname}">
             </span>
         </{$tag}>
 EOT;
