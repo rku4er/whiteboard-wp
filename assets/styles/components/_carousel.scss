@@ -22,24 +22,4 @@
             opacity: 1;
         }
     }
-
-    &.slide {
-        .carousel-item {
-            display: block;
-            position: absolute;
-            visibility: hidden;
-
-            &.active {
-                visibility: visible;
-                position: relative;
-            }
-
-            &.prev,
-            &.next {
-                visibility: visible;
-                position: absolute;
-            }
-
-        }
-    }
 }

@@ -44,6 +44,14 @@ h6 { font-size: 1rem; }
     position: relative;
 }
 
+// nav links
+.nav-link {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  overflow: hidden;
+}
+
 // lead text
 .lead {
     color: $lead-color;
@@ -65,4 +73,55 @@ svg { pointer-events: none; }
   height: 24px;
   display: inline-block;
   vertical-align: middle;
+}
+
+// flex grid
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-col {
+  flex-basis: 0;
+  flex-grow: 1;
+  width: auto;
+  max-width: 100%;
+}
+
+// custom container width
+@include media (">=xl") {
+  #video {
+    .container {
+      max-width: 954px;
+    }
+  }
+
+  #goals {
+    .container {
+      max-width: 844px;
+    }
+  }
+
+  #price {
+    .container {
+      max-width: 834px;
+    }
+  }
+
+  #ordering {
+    .container {
+      max-width: 954px;
+    }
+  }
+
+  #about {
+    .container {
+      max-width: 954px;
+    }
+  }
+
+  #faq {
+    .container {
+      max-width: 822px;
+    }
+  }
 }

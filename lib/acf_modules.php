@@ -275,8 +275,8 @@ EOT;
             <div class="{$layout}-wrapper">
                 <header class="price">
                     <h3 class="title" style="color: {$title_color}">{$section_title}</h3>
-                    <span class="amount">
-                        {$row['price']}<span class="addon">kr</span>
+                    <span class="amount"><span class="addon-prepend">fra</span>
+                        {$row['price']}<span class="addon-append">kr</span>
                     </span>
                 </header>
                 <div class="content">{$row['content']}</div>

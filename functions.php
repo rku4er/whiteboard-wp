@@ -18,6 +18,7 @@ $sage_includes = array(
   'lib/gallery.php',               // Custom [gallery]
   'lib/extras.php',                // Extra functions
   'lib/acf_modules.php',           // ACF template entities
+  'lib/shortcodes.php',            // Shortcodes
   'lib/soil/soil.php',             // Soil Modules
 );
 

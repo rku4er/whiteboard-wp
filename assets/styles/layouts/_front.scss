@@ -23,6 +23,10 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
       .icon {
         opacity: .5;
       }
+
+      @include media ("<sm") {
+        display: none;
+      }
     }
 
     &:last-child {
@@ -59,17 +63,30 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         &:before {
             background-color: #000;
             opacity: .8;
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             @include border-radius(50%);
             @include transition(background .2s ease-out);
         }
 
         &:after {
-            width: 40px;
-            height: 40px;
-            margin-left: 4px;
+            width: 26px;
+            height: 26px;
+            margin-left: 2px;
             background: url($icon-play) no-repeat 50%;
+        }
+
+        @include media (">=sm") {
+          &:before {
+              width: 100px;
+              height: 100px;
+          }
+
+          &:after {
+              width: 40px;
+              height: 40px;
+              margin-left: 4px;
+          }
         }
 
         @include hover-focus {
@@ -130,8 +147,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
 .price-wrapper {
     background-color: #fff;
-    max-width: 474px;
-    margin: 0 auto;
     @include border-radius($spacer/2);
     overflow: hidden;
 
@@ -140,7 +155,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         @include padding-box($spacer/2, $grid-gutter-width);
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
 
         .title {
@@ -148,7 +163,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             font-size: $font-size-base*1.5;
             margin-right: $spacer;
             margin-bottom: 0;
-            flex: 1;
+            margin-top: 8px;
 
             @include media (">=md") {
                 font-size: $font-size-base*2.625;
@@ -166,7 +181,8 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             }
         }
 
-        .addon {
+        .addon-prepend,
+        .addon-append {
             font-size: $font-size-base*1.5;
             color: $brand-primary;
             font-weight: 600;
@@ -190,10 +206,14 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
         ul {
             padding-left: $spacer;
-            margin-bottom: $spacer*2;
+            margin-bottom: 0;
 
-            li:not(:last-child) {
+            li {
                 margin-bottom: $spacer/8;
+            }
+
+            @include media (">=sm") {
+              margin-bottom: $spacer*2;
             }
         }
 
@@ -204,7 +224,6 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
         }
     }
 }
-
 
 .portfolio-wrapper {
     position: relative;
@@ -309,14 +328,15 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
             }
 
             @include hover-focus {
-
                 &:before {
                      opacity: .3;
                 }
+            }
 
-                &:after {
-                     background-color: $brand-primary;
-                }
+            &:active {
+              &:after {
+                background-color: $brand-primary;
+              }
             }
         }
 
@@ -652,6 +672,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
     .logo {
         @extend .hidden-sm-down;
         display: block;
+        margin-bottom: 60px;
 
         img {
              max-width: 100%;
@@ -660,6 +681,7 @@ $icon-play: svg-inline('<svg x="0" y="0" viewBox="0 0 163.861 163.861"><style>pa
 
     .contacts {
          @include list-unstyled();
+         margin-bottom: 60px;
 
          @include media ("<md") {
              margin-bottom: $spacer*2.5;
